@@ -48,7 +48,7 @@ public class Principal {
                     
                     String codigo = entrada.nextLine();
                     
-                    System.out.println("Digite a quantidade do produto: ");
+                    System.out.println("Quantidade: ");
                     int quantidade = entrada.nextInt();
                     
                     produtosEstoque.add(p);
@@ -76,10 +76,10 @@ public class Principal {
 
                 case 3:
                     
-                    //for (int i = 0; i < listaUsuarios.size(); i++) {
-                    //    System.out.println(listaUsuarios.get(i).getDadosUsuario() + "\n");
-                    //}
-                   // break;
+                    /*for (int i = 0; i < listaUsuarios.size(); i++) {
+                        System.out.println(listaUsuarios.get(i).getDadosUsuario() + "\n");
+                    }
+                    break; ainda não criei a lista dos usuarios (vendedores, administrador, gerente)*/
                     
                 case 4:
                     
@@ -135,10 +135,6 @@ public class Principal {
             }   
         while(opcao!=7);
     
-    
-        
-        
-        
     }
     
 }

@@ -9,6 +9,13 @@ package sa4;
  *
  * @author USUARIO
  */
-public class Atendente {
+public class Atendente extends Usuario{
+
+    public Atendente() {
+    }
+
+    public Atendente(String cargo, String loginUsuario, String senha) {
+        super(cargo, loginUsuario, senha);
+    }
     
 }

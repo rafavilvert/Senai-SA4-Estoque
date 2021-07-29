@@ -1,15 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sa4;
 
-/**
- *
- * @author USUARIO
- */
-// classe Lampada extende a classe Produto
 public class Lampada extends Produto { 
     private String tipo;
     private String cor;

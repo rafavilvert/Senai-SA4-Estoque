@@ -2,29 +2,35 @@ package sa4;
 
 public class Fornecedor extends PessoaJuridica{
     
-    private int idFornecedor;
+    private String cnpj;
+    private String razaoSocial;
 
-    public Fornecedor() {
+    public Fornecedor(String cnpj, String razaoSocial) {
+        this.cnpj = cnpj;
+        this.razaoSocial = razaoSocial;
     }
+
+    public String getCnpj() {
+        return cnpj;
+    }
+
+    public void setCnpj(String cnpj) {
+        this.cnpj = cnpj;
+    }
+
+    public String getRazaoSocial() {
+        return razaoSocial;
+    }
+
+    public void setRazaoSocial(String razaoSocial) {
+        this.razaoSocial = razaoSocial;
+    }
+
+    
+
+   
     
     
-
-    public Fornecedor(int idFornecedor) {
-        this.idFornecedor = idFornecedor;
-    }
-
-    public Fornecedor(int idFornecedor, String razaoSocial, String inscricaoEstadual, String cnpj, int codigo, String nome, String telefone, Endereco endereco) {
-        super(razaoSocial, inscricaoEstadual, cnpj, codigo, nome, telefone, endereco);
-        this.idFornecedor = idFornecedor;
-    }
-
-    public int getIdFornecedor() {
-        return idFornecedor;
-    }
-
-    public void setIdFornecedor(int idFornecedor) {
-        this.idFornecedor = idFornecedor;
-    }
     
     
     

@@ -1,19 +1,48 @@
-
 package sa4;
 
+import java.util.ArrayList;
+import java.util.Date;
 
 public class Usuario extends PessoaFisica {
-    
-    private String cargo;
+
     private String loginUsuario;
+    private String email;
     private String senha;
+    private String cargo;
+    private ArrayList<Usuario> listaUsuarios;
 
     public Usuario() {
     }
 
-    public Usuario(String cargo, String loginUsuario, String senha) {
-        this.cargo = cargo;
+    public Usuario(String loginUsuario, String email, String senha, String cargo) {
         this.loginUsuario = loginUsuario;
+        this.email = email;
+        this.senha = senha;
+        this.cargo = cargo;
+       
+    }
+
+    public String getLoginUsuario() {
+        return loginUsuario;
+    }
+
+    public void setLoginUsuario(String loginUsuario) {
+        this.loginUsuario = loginUsuario;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
         this.senha = senha;
     }
 
@@ -25,23 +54,29 @@ public class Usuario extends PessoaFisica {
         this.cargo = cargo;
     }
 
-    public String getLoginUsuario() {
-        return loginUsuario;
+    public ArrayList<Usuario> getListaUsuarios() {
+        return listaUsuarios;
     }
 
-    public void setLoginUsuario(String loginUsuario) {
-        this.loginUsuario = loginUsuario;
+    public void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
     }
-
-    public String getSenha() {
-        return senha;
-    }
-
-    public void setSenha(String senha) {
-        this.senha = senha;
-    }
-
     
+    public void vender(Produto p, int quantidade) {
+
+        if (quantidade > p.getEstoque()) {
+            System.out.println("Estoque insuficiente!");
+        } else {
+            p.setEstoque(p.getEstoque() - quantidade);
+            System.out.println("Vendeu " + quantidade + " " + p.getNomeProduto() + " Total: " + p.getPrecoVenda() * quantidade + " Data venda: ");
+        }
+
+    }
     
-    
+    @Override //polimorfismo de sobreescrita do metodo toString
+    public String toString() {
+        return "Usuario{" + "nome=" + this.getNome() + ", email=" + this.getEmail() + ", senha=" + this.getSenha() + ", login=" + this.getLoginUsuario() + "}";
+    }
 }
+
+        

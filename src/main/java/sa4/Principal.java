@@ -12,8 +12,12 @@ public class Principal {
         
         Produto p = new Produto();
         Venda venda = new Venda();
+        //Atendente at = new Atendente();
+        Usuario usuario = new Usuario();
+        Date dataVenda = new Date();
         ArrayList<Produto> produtosVenda = new ArrayList<>();
         ArrayList<Produto> produtosEstoque = new ArrayList<>();
+        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
         
        int opcao = 0;
         do {
@@ -42,7 +46,7 @@ public class Principal {
                     for (int i=0;i<produtosEstoque.size();i++) {
 
                         System.out.println("Código: " + produtosEstoque.get(i).getCodigo() + 
-                                " Produto: " + produtosEstoque.get(i).getNome() + 
+                                " Produto: " + produtosEstoque.get(i).getNomeProduto() + 
                                 " Estoque: " + produtosEstoque.get(i).getEstoque());
                     }
                     
@@ -52,34 +56,47 @@ public class Principal {
                     int quantidade = entrada.nextInt();
                     
                     produtosEstoque.add(p);
-                    venda.vender(p, quantidade);
+                    usuario.vender(p, quantidade);
                     produtosVenda.add(p);
                     break;
 
                 case 2:
 
                     System.out.println("============================");
-                    System.out.println("Digite o nome do usuário: ");
-                    String nomeUsuario = entrada.nextLine();
-
-                    System.out.println("Digite o email do usuário: ");
-                    String emailUsuario = entrada.nextLine();
-
+                    
+                    System.out.println("Digite o login do usuário: ");
+                    String login = entrada.nextLine();
+                    
                     System.out.println("Digite a senha do usuário: ");
-                    String senhaUsuario = entrada.nextLine();
+                    String senha = entrada.nextLine();
+                    
+                    System.out.println("Cargo do usuário: ");
+                    String cargo = entrada.nextLine();
+                    
+                    System.out.println("Cpf do usuário: ");
+                    String cpf = entrada.nextLine();
 
-                    Usuario usuario = new Usuario(nomeUsuario, emailUsuario, senhaUsuario);
-                    //listaUsuarios.add(usuario);
+                    System.out.println("Digite o nome do usuário: ");
+                    String nome = entrada.nextLine();
+                    
+                    System.out.println("telefone do usuário: ");
+                    String telefone = entrada.nextLine();
+                    
+                    System.out.println("Digite o email do usuário: ");
+                    String email = entrada.nextLine();
+
+                    usuario = new Usuario(login, email, nome, senha);
+                    listaUsuarios.add(usuario);
                     System.out.println("Usuário cadastrado com sucesso!");
                     
                     break;
 
                 case 3:
                     
-                    //for (int i = 0; i < listaUsuarios.size(); i++) {
-                    //    System.out.println(listaUsuarios.get(i).getDadosUsuario() + "\n");
-                    //}
-                   // break;
+                    for (int i = 0; i < listaUsuarios.size(); i++) {
+                        System.out.println(listaUsuarios.get(i).toString() + "\n");
+                    }
+                    break;
                     
                 case 4:
                     
@@ -93,7 +110,7 @@ public class Principal {
                     String categoria = entrada.nextLine();
                     
                     System.out.println("Digite o nome do produto: ");
-                    String nome = entrada.nextLine();
+                    String nomeProduto = entrada.nextLine();
                     
                     System.out.println("Digite o preço de compra do produto: ");
                     double precoCompra = Double.parseDouble(entrada.nextLine());
@@ -105,7 +122,7 @@ public class Principal {
                     int estoque = entrada.nextInt();
                     entrada.nextLine();
                     
-                    p = new Produto (cod,categoria,nome,precoCompra,precoVenda,estoque);
+                    p = new Produto (cod,categoria,nomeProduto,precoCompra,precoVenda,estoque);
                     produtosEstoque.add(p);
                     break;
                     
@@ -118,7 +135,7 @@ public class Principal {
                     
                 case 6:
                     for(Produto vendidos : produtosVenda){
-                       System.out.println(vendidos.getNome() + "\n");
+                       System.out.println(vendidos.getNomeProduto() + "\n");
                     }
                 
                 

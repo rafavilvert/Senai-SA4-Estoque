@@ -18,6 +18,12 @@ public class Pessoa {
     public Pessoa() {
     }
 
+    public Pessoa(int codigo, String nome) {
+        this.codigo = codigo;
+        this.nome = nome;
+    }
+    
+    
     public Pessoa(int codigo, String nome, String telefone, Endereco endereco) {
         this.codigo = codigo;
         this.nome = nome;

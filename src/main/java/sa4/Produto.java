@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Produto {
     private int codigo;
     private String categoria;
-    private String nome;
+    private String nomeProduto;
     private double precoCompra;
     private double precoVenda;
     private int estoque;
@@ -14,21 +14,17 @@ public class Produto {
 
     public Produto() {
     }
-    
-    public Produto(int codigo) {
-        this.codigo = codigo;
-        
-    }
 
-    public Produto(int codigo, String categoria, String nome, double precoCompra, double precoVenda, int estoque) {
+    public Produto(int codigo, String categoria, String nomeProduto, double precoCompra, double precoVenda, int estoque) {
         this.codigo = codigo;
         this.categoria = categoria;
-        this.nome = nome;
+        this.nomeProduto = nomeProduto;
         this.precoCompra = precoCompra;
         this.precoVenda = precoVenda;
         this.estoque = estoque;
         
     }
+    
     
     
     public int getCodigo() {
@@ -47,12 +43,12 @@ public class Produto {
         this.categoria = categoria;
     }
 
-    public String getNome() {
-        return nome;
+    public String getNomeProduto() {
+        return nomeProduto;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
+    public void setNomeProduto(String nomeProduto) {
+        this.nomeProduto = nomeProduto;
     }
 
     public double getPrecoCompra() {
@@ -96,7 +92,7 @@ public class Produto {
     }
     
     public String getDadosProduto() {
-        return "Código: " + this.codigo + " Nome: " + this.nome + " Estoque: " + this.estoque;
+        return "Código: " + this.codigo + " Nome: " + this.nomeProduto + " Estoque: " + this.estoque;
     }
     
 }

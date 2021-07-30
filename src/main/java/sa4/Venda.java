@@ -4,19 +4,40 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class Venda {
-    private int idVenda;
-    private Date dataVenda = new Date();
-    ArrayList<Produto> produtosVenda = new ArrayList<>();
-    
-    
-    
-  public void vender(Produto p, int quantidade) {
 
-        if (quantidade > p.getEstoque()) {
-            System.out.println("Estoque insuficiente!");
-        } else {
-            p.setEstoque(p.getEstoque() - quantidade);
-            System.out.println("Vendeu " + quantidade + " " + p.getNome() + " Total: " + p.getPrecoVenda()*quantidade + " Data venda: " + dataVenda);
-        }    
+    private int idVenda;
+    private Date dataVenda;
+    ArrayList<Produto> produtosVenda = new ArrayList<>();
+
+    public Venda() {
+    }
+
+    public Venda(int idVenda, Date dataVenda) {
+        this.idVenda = idVenda;
+        this.dataVenda = dataVenda;
+    }
+
+    public int getIdVenda() {
+        return idVenda;
+    }
+
+    public void setIdVenda(int idVenda) {
+        this.idVenda = idVenda;
+    }
+
+    public Date getDataVenda() {
+        return dataVenda;
+    }
+
+    public void setDataVenda(Date dataVenda) {
+        this.dataVenda = dataVenda;
+    }
+
+    public ArrayList<Produto> getProdutosVenda() {
+        return produtosVenda;
+    }
+
+    public void setProdutosVenda(ArrayList<Produto> produtosVenda) {
+        this.produtosVenda = produtosVenda;
     }
 }

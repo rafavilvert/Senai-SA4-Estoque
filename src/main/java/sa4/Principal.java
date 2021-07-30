@@ -67,6 +67,12 @@ public class Principal {
                     System.out.println("Digite o login do usuário: ");
                     String login = entrada.nextLine();
                     
+                    System.out.println("Digite o nome do usuário: ");
+                    String nome = entrada.nextLine();
+                    
+                    System.out.println("Digite o email do usuário: ");
+                    String email = entrada.nextLine();
+                    
                     System.out.println("Digite a senha do usuário: ");
                     String senha = entrada.nextLine();
                     
@@ -76,16 +82,7 @@ public class Principal {
                     System.out.println("Cpf do usuário: ");
                     String cpf = entrada.nextLine();
 
-                    System.out.println("Digite o nome do usuário: ");
-                    String nome = entrada.nextLine();
-                    
-                    System.out.println("telefone do usuário: ");
-                    String telefone = entrada.nextLine();
-                    
-                    System.out.println("Digite o email do usuário: ");
-                    String email = entrada.nextLine();
-
-                    usuario = new Usuario(login, email, nome, senha);
+                    usuario = new Usuario(login, nome, email, senha, cargo, cpf);
                     listaUsuarios.add(usuario);
                     System.out.println("Usuário cadastrado com sucesso!");
                     

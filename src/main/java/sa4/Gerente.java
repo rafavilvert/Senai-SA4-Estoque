@@ -5,10 +5,11 @@ public class Gerente extends Usuario{
     public Gerente() {
     }
 
-    public Gerente(String loginUsuario, String email, String senha, String cargo) {
-        super(loginUsuario, email, senha, cargo);
+    public Gerente(String loginUsuario, String nome, String email, String senha, String cargo, String cpf) {
+        super(loginUsuario, nome, email, senha, cargo, cpf);
     }
 
+   
    
     
 }

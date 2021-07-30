@@ -13,14 +13,19 @@ public class Usuario extends PessoaFisica {
 
     public Usuario() {
     }
+    
+    
 
-    public Usuario(String loginUsuario, String email, String senha, String cargo) {
+    public Usuario(String loginUsuario, String nome, String email, String senha, String cargo, String cpf) {
         this.loginUsuario = loginUsuario;
+        this.setNome(nome);
         this.email = email;
         this.senha = senha;
         this.cargo = cargo;
-       
+        this.setCpf(cpf);
     }
+
+    
 
     public String getLoginUsuario() {
         return loginUsuario;
@@ -74,8 +79,11 @@ public class Usuario extends PessoaFisica {
     }
     
     @Override //polimorfismo de sobreescrita do metodo toString
+    //metodo somente acessível para o usuário ROOT pois mostra a senha dos usuários
     public String toString() {
-        return "Usuario{" + "nome=" + this.getNome() + ", email=" + this.getEmail() + ", senha=" + this.getSenha() + ", login=" + this.getLoginUsuario() + "}";
+        return "Dados do Usuário{" + " nome: " + this.getNome() + ", email: " + this.getEmail() 
+                        + ", senha: " + this.getSenha() + ", login=" 
+                        + this.getLoginUsuario() + " Cargo: " + this.getCargo() + " Cpf: " + this.getCpf() + "}";
     }
 }
 

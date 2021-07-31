@@ -12,90 +12,64 @@ public class Principal {
         
         Produto p = new Produto();
         Venda venda = new Venda();
-        //Atendente at = new Atendente();
+        Cliente cli = new Cliente();
+        Gerente administrador = new Gerente();
         Usuario usuario = new Usuario();
         Date dataVenda = new Date();
         ArrayList<Produto> produtosVenda = new ArrayList<>();
         ArrayList<Produto> produtosEstoque = new ArrayList<>();
-        ArrayList<Usuario> listaUsuarios = new ArrayList<>();
+        ArrayList<Object> listaUsuarios = new ArrayList<>();
+        ArrayList<Object> infoVenda = new ArrayList<>();
+        String escolha;
+        int opcao = 0;
         
-       int opcao = 0;
-        do {
+        System.out.println("=================BEM-VINDO==================");
+        System.out.println("CADASTRE O USUARIO ROOT -- Digite um login: ");
+        Scanner entrada = new Scanner(System.in);
+        String login = entrada.nextLine();
+        administrador.setLogin(login);
 
+        System.out.println("Digite o nome: ");
+        String nome = entrada.nextLine();
+        administrador.setNome(nome);
+
+        System.out.println("Digite o email: ");
+        String email = entrada.nextLine();
+        administrador.setEmail(email);
+
+        System.out.println("Digite a senha: ");
+        String senha = entrada.nextLine();
+        administrador.setSenha(senha);
+
+        System.out.println("Digite o cargo: ");
+        String cargo = entrada.nextLine();
+        administrador.setCargo(cargo);
+
+        System.out.println("Digite o cpf: ");
+        String cpf = entrada.nextLine();
+        administrador.setCpf(cpf);
+        listaUsuarios.add(administrador);
+
+        System.out.println("Administrador cadastrado com sucesso!");
+            
+        do {
             System.out.println(
-                    "Selecionar a opção: \n"
-                    + "1- Venda \n"
-                    + "2- Cadastrar usuário \n"
-                    + "3- Consultar usuários \n"
-                    + "4- Cadastrar produtos \n"
-                    + "5- Consultar produtos \n"
-                    + "6- Consultar vendas \n"
-                    + "7- Sair"
+                "\nSelecionar a opção: \n"
+                + "1- Cadastrar produtos \n"
+                + "2- Cadastrar usuários \n"
+                + "3- Venda \n"
+                + "4- Consultar usuários \n"
+                + "5- Consultar produtos \n"
+                + "6- Consultar vendas \n"
+                + "7- Sair \n"
             );
 
-            Scanner entrada = new Scanner(System.in);
             opcao = entrada.nextInt();
             entrada.nextLine(); // consome o comando do Enter
 
-            switch (opcao) {
-
+            switch(opcao) {
+                
                 case 1:
-
-                    System.out.println("Qual produto quer vender? Digite o código: ");
-                    
-                    for (int i=0;i<produtosEstoque.size();i++) {
-
-                        System.out.println("Código: " + produtosEstoque.get(i).getCodigo() + 
-                                " Produto: " + produtosEstoque.get(i).getNomeProduto() + 
-                                " Estoque: " + produtosEstoque.get(i).getEstoque());
-                    }
-                    
-                    String codigo = entrada.nextLine();
-                    
-                    System.out.println("Digite a quantidade do produto: ");
-                    int quantidade = entrada.nextInt();
-                    
-                    produtosEstoque.add(p);
-                    usuario.vender(p, quantidade);
-                    produtosVenda.add(p);
-                    break;
-
-                case 2:
-
-                    System.out.println("============================");
-                    
-                    System.out.println("Digite o login do usuário: ");
-                    String login = entrada.nextLine();
-                    
-                    System.out.println("Digite o nome do usuário: ");
-                    String nome = entrada.nextLine();
-                    
-                    System.out.println("Digite o email do usuário: ");
-                    String email = entrada.nextLine();
-                    
-                    System.out.println("Digite a senha do usuário: ");
-                    String senha = entrada.nextLine();
-                    
-                    System.out.println("Cargo do usuário: ");
-                    String cargo = entrada.nextLine();
-                    
-                    System.out.println("Cpf do usuário: ");
-                    String cpf = entrada.nextLine();
-
-                    usuario = new Usuario(login, nome, email, senha, cargo, cpf);
-                    listaUsuarios.add(usuario);
-                    System.out.println("Usuário cadastrado com sucesso!");
-                    
-                    break;
-
-                case 3:
-                    
-                    for (int i = 0; i < listaUsuarios.size(); i++) {
-                        System.out.println(listaUsuarios.get(i).toString() + "\n");
-                    }
-                    break;
-                    
-                case 4:
                     
                     System.out.println("=======================");
                     
@@ -121,6 +95,88 @@ public class Principal {
                     
                     p = new Produto (cod,categoria,nomeProduto,precoCompra,precoVenda,estoque);
                     produtosEstoque.add(p);
+                    System.out.println("Produto cadastrado com sucesso!");
+                    break;
+                
+                case 2: // cadastro usuário
+
+                    System.out.println("============================");
+                    System.out.println("Digite seu login: ");
+                    login = entrada.nextLine();
+                    System.out.println("Digite sua senha: ");
+                    senha = entrada.nextLine();
+                    
+                    if (administrador.getLogin().equals(login) && administrador.getSenha().equals(senha)){
+                        System.out.println("Usuário " + administrador.getNome() + " entrou no sistema\n");
+                    }
+
+                    else {
+                        System.out.println("Usuário sem permissão!\n");
+                    }
+                    
+                    entrada.nextLine();
+                    administrador.cadastrarUsuario();
+                    break;   
+                
+                case 3: // venda
+                    System.out.println("Digite seu login: ");
+                    login = entrada.nextLine();
+                    System.out.println("Digite sua senha: ");
+                    senha = entrada.nextLine();
+                    
+                    if (administrador.getLogin().equals(login) && administrador.getSenha().equals(senha)){
+                        System.out.println("Usuário " + administrador.getNome() + " entrou no sistema\n");
+                    }
+
+                    else {
+                        System.out.println("Usuário não cadastrado! Deseja cadastrar? Sim - Não: \n");
+                        escolha = entrada.nextLine();
+
+                        if (escolha == "Sim"){
+                            Gerente gerente = new Gerente();
+                            gerente.cadastrarUsuario();
+                        }
+
+                        else{
+                            break;
+                        }
+
+                    }
+                        
+                    System.out.println("Digite o cpf do cliente: ");
+                    cpf = entrada.nextLine();
+                    cli.setCpf(cpf);
+                    
+                    System.out.println("\nDigite o código do produto: \n");
+                    
+                    
+                        for (int i=0;i<produtosEstoque.size();i++) {
+
+                            System.out.println("Código: " + produtosEstoque.get(i).getCodigo() + 
+                                    " Produto: " + produtosEstoque.get(i).getNomeProduto() + 
+                                    " Estoque: " + produtosEstoque.get(i).getEstoque());
+                        }
+                    
+                    String codigo = entrada.nextLine();
+                    
+                    System.out.println("Digite a quantidade: ");
+                    int quantidade = entrada.nextInt();
+                    
+                    produtosEstoque.add(p);
+                    usuario.vender(p, quantidade);
+                    produtosVenda.add(p);
+                    infoVenda.add(usuario);
+                    infoVenda.add(produtosVenda);
+                    infoVenda.add(cli);
+                    
+                    break;
+
+
+                case 4:
+                    
+                    for (int i = 0; i < listaUsuarios.size(); i++) {
+                        System.out.println(listaUsuarios.get(i).toString() + "\n");
+                    }
                     break;
                     
                 case 5:
@@ -134,8 +190,7 @@ public class Principal {
                     for(Produto vendidos : produtosVenda){
                        System.out.println(vendidos.getNomeProduto() + "\n");
                     }
-                
-                
+                    System.out.println(infoVenda.toString());
                 case 7:
                     
                     break;
@@ -146,7 +201,8 @@ public class Principal {
                     break;
                 }
             
-            }   
+            }  
+        
         while(opcao!=7);
     
     

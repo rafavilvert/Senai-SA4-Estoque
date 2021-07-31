@@ -6,15 +6,19 @@ import java.util.Date;
 public class Venda {
 
     private int idVenda;
-    private Date dataVenda;
-    ArrayList<Produto> produtosVenda = new ArrayList<>();
+    private Usuario usuario;
+    private Cliente cliente;
+    ArrayList<Produto> produtosVenda;
+    ArrayList<Object> infoVenda;
+    Date dataVenda;
 
     public Venda() {
     }
-
-    public Venda(int idVenda, Date dataVenda) {
+    
+    public Venda(int idVenda, Usuario usuario, Cliente cliente) {
         this.idVenda = idVenda;
-        this.dataVenda = dataVenda;
+        this.usuario = usuario;
+        this.cliente = cliente;
     }
 
     public int getIdVenda() {
@@ -23,6 +27,30 @@ public class Venda {
 
     public void setIdVenda(int idVenda) {
         this.idVenda = idVenda;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public ArrayList<Object> getInfoVenda() {
+        return infoVenda;
+    }
+
+    public void setInfoVenda(ArrayList<Object> infoVenda) {
+        this.infoVenda = infoVenda;
     }
 
     public Date getDataVenda() {
@@ -40,4 +68,11 @@ public class Venda {
     public void setProdutosVenda(ArrayList<Produto> produtosVenda) {
         this.produtosVenda = produtosVenda;
     }
+
+    @Override
+    public String toString() {
+        return "Venda{" + "idVenda=" + this.idVenda + ", usuario=" + this.usuario + ", cliente=" + this.cliente + ", produtosVenda=" + this.produtosVenda + ", infoVenda=" + this.infoVenda + ", dataVenda=" + this.dataVenda + '}';
+    }
+    
+    
 }

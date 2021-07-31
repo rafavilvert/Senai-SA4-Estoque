@@ -10,25 +10,13 @@ package sa4;
  * @author USUARIO
  */
 public class Pessoa {
+    
     private int codigo;
     private String nome;
     private String telefone;
     private Endereco endereco;
 
     public Pessoa() {
-    }
-
-    public Pessoa(int codigo, String nome) {
-        this.codigo = codigo;
-        this.nome = nome;
-    }
-    
-    
-    public Pessoa(int codigo, String nome, String telefone, Endereco endereco) {
-        this.codigo = codigo;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.endereco = endereco;
     }
 
     public int getCodigo() {
@@ -62,6 +50,7 @@ public class Pessoa {
     public void setEndereco(Endereco endereco) {
         this.endereco = endereco;
     }
+
     
     
 }

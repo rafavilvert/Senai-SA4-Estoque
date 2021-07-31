@@ -10,7 +10,7 @@ public class Produto {
     private double precoVenda;
     private int estoque;
     private int quantidade;
-    ArrayList<Produto> produtosEstoque = new ArrayList<>();
+    ArrayList<Produto> produtosEstoque;
 
     public Produto() {
     }
@@ -24,8 +24,6 @@ public class Produto {
         this.estoque = estoque;
         
     }
-    
-    
     
     public int getCodigo() {
         return codigo;

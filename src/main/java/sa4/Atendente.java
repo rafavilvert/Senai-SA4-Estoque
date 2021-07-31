@@ -1,13 +1,26 @@
 package sa4;
 
+import java.util.ArrayList;
+
 public class Atendente extends Usuario{
 
     public Atendente() {
     }
 
-    public Atendente(String loginUsuario, String nome, String email, String senha, String cargo, String cpf) {
-        super(loginUsuario, nome, email, senha, cargo, cpf);
+    public ArrayList<Object> getListaUsuarios() {
+        return listaUsuarios;
     }
+
+    public void setListaUsuarios(ArrayList<Object> listaUsuarios) {
+        this.listaUsuarios = listaUsuarios;
+    }
+
+    
+
+
+    
+
+    
 
    
     

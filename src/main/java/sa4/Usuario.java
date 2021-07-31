@@ -2,37 +2,25 @@ package sa4;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Usuario extends PessoaFisica {
 
-    private String loginUsuario;
+    private String login;
     private String email;
     private String senha;
     private String cargo;
-    private ArrayList<Usuario> listaUsuarios;
+    ArrayList<Object> listaUsuarios;
 
     public Usuario() {
     }
-    
-    
 
-    public Usuario(String loginUsuario, String nome, String email, String senha, String cargo, String cpf) {
-        this.loginUsuario = loginUsuario;
-        this.setNome(nome);
-        this.email = email;
-        this.senha = senha;
-        this.cargo = cargo;
-        this.setCpf(cpf);
+    public String getLogin() {
+        return login;
     }
 
-    
-
-    public String getLoginUsuario() {
-        return loginUsuario;
-    }
-
-    public void setLoginUsuario(String loginUsuario) {
-        this.loginUsuario = loginUsuario;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public String getEmail() {
@@ -59,32 +47,32 @@ public class Usuario extends PessoaFisica {
         this.cargo = cargo;
     }
 
-    public ArrayList<Usuario> getListaUsuarios() {
+    public ArrayList<Object> getListaUsuarios() {
         return listaUsuarios;
     }
 
-    public void setListaUsuarios(ArrayList<Usuario> listaUsuarios) {
+    public void setListaUsuarios(ArrayList<Object> listaUsuarios) {
         this.listaUsuarios = listaUsuarios;
     }
     
+    
+
+    
+    
+
     public void vender(Produto p, int quantidade) {
 
         if (quantidade > p.getEstoque()) {
             System.out.println("Estoque insuficiente!");
         } else {
             p.setEstoque(p.getEstoque() - quantidade);
-            System.out.println("Vendeu " + quantidade + " " + p.getNomeProduto() + " Total: " + p.getPrecoVenda() * quantidade + " Data venda: ");
+            System.out.println("Vendeu " + quantidade + " " + p.getNomeProduto() + " Total: " + p.getPrecoVenda() * quantidade);
         }
 
     }
-    
-    @Override //polimorfismo de sobreescrita do metodo toString
-    //metodo somente acessível para o usuário ROOT pois mostra a senha dos usuários
-    public String toString() {
-        return "Dados do Usuário{" + " nome: " + this.getNome() + ", email: " + this.getEmail() 
-                        + ", senha: " + this.getSenha() + ", login=" 
-                        + this.getLoginUsuario() + " Cargo: " + this.getCargo() + " Cpf: " + this.getCpf() + "}";
-    }
+
+   
+   
 }
 
         

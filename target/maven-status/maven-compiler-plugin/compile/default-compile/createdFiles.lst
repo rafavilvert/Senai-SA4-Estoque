@@ -1,6 +1,7 @@
-sa4\Gerente.class
-sa4\Atendente.class
+sa4\PessoaFisica.class
+sa4\Fornecedor.class
 sa4\Produto.class
+sa4\Transacao.class
 sa4\PessoaJuridica.class
 sa4\Cliente.class
 sa4\Venda.class
@@ -8,7 +9,4 @@ sa4\Usuario.class
 sa4\Pessoa.class
 sa4\Compra.class
 sa4\Lampada.class
-sa4\PessoaFisica.class
-sa4\Fornecedor.class
-sa4\Endereco.class
 sa4\Principal.class

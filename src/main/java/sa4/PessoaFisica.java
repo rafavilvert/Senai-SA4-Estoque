@@ -1,11 +1,8 @@
 package sa4;
 
-public class PessoaFisica extends Pessoa{
-    
-    private String cpf;
+public class PessoaFisica extends Pessoa {
 
-    public PessoaFisica() {
-    }
+    private String cpf;
 
     public String getCpf() {
         return cpf;
@@ -15,5 +12,4 @@ public class PessoaFisica extends Pessoa{
         this.cpf = cpf;
     }
 
-    
 }

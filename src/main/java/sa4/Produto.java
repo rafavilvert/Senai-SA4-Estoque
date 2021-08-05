@@ -1,52 +1,28 @@
 package sa4;
 
-import java.util.ArrayList;
-
 public class Produto {
-    private int codigo;
-    private String categoria;
-    private String nomeProduto;
-    private double precoCompra;
-    private double precoVenda;
+
+    private String codigo;
+    private String nome;
+    private Double precoCompra;
+    private Double precoVenda;
     private int estoque;
     private int quantidade;
-    ArrayList<Produto> produtosEstoque;
 
-    public Produto() {
-    }
-
-    public Produto(int codigo, String categoria, String nomeProduto, double precoCompra, double precoVenda, int estoque) {
-        this.codigo = codigo;
-        this.categoria = categoria;
-        this.nomeProduto = nomeProduto;
-        this.precoCompra = precoCompra;
-        this.precoVenda = precoVenda;
-        this.estoque = estoque;
-        
-    }
-    
-    public int getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(int codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public String getNome() {
+        return nome;
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    public String getNomeProduto() {
-        return nomeProduto;
-    }
-
-    public void setNomeProduto(String nomeProduto) {
-        this.nomeProduto = nomeProduto;
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public double getPrecoCompra() {
@@ -81,19 +57,9 @@ public class Produto {
         this.quantidade = quantidade;
     }
 
-    public ArrayList<Produto> getProdutosEstoque() {
-        return produtosEstoque;
+    @Override
+    public String toString() {
+        return "Produto{" + "nome=" + nome + ", precoCompra=" + precoCompra + ", precoVenda=" + precoVenda + ", estoque=" + estoque + '}';
     }
 
-    public void setProdutosEstoque(ArrayList<Produto> produtosEstoque) {
-        this.produtosEstoque = produtosEstoque;
-    }
-    
-    public String getDadosProduto() {
-        return "Código: " + this.codigo + " Nome: " + this.nomeProduto + " Estoque: " + this.estoque;
-    }
-    
 }
-    
-
-    

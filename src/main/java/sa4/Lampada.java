@@ -1,30 +1,10 @@
 package sa4;
 
-// classe Lampada extende a classe Produto
-public class Lampada extends Produto { 
-    private String tipo;
-    private String cor;
+public class Lampada extends Produto {
+
     private String potencia;
     private String voltagem;
-
-    public Lampada() {
-    }
-
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public String getCor() {
-        return cor;
-    }
-
-    public void setCor(String cor) {
-        this.cor = cor;
-    }
+    private String cor;
 
     public String getPotencia() {
         return potencia;
@@ -41,7 +21,13 @@ public class Lampada extends Produto {
     public void setVoltagem(String voltagem) {
         this.voltagem = voltagem;
     }
-    
-    
-    
+
+    public String getCor() {
+        return cor;
+    }
+
+    public void setCor(String cor) {
+        this.cor = cor;
+    }
+
 }

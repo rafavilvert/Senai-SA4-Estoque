@@ -1,39 +1,36 @@
 package sa4;
 
 import java.util.ArrayList;
-import java.util.Date;
+import java.util.List;
 
-public class Venda {
+public class Venda implements Transacao {
 
-    private int idVenda;
-    private Usuario usuario;
+    private List<Produto> produtosVenda;
+    private String data;
+    private Pessoa usuario;
     private Cliente cliente;
-    ArrayList<Produto> produtosVenda;
-    ArrayList<Object> infoVenda;
-    Date dataVenda;
 
-    public Venda() {
-    }
-    
-    public Venda(int idVenda, Usuario usuario, Cliente cliente) {
-        this.idVenda = idVenda;
-        this.usuario = usuario;
-        this.cliente = cliente;
+    public List<Produto> getProdutosVenda() {
+        return produtosVenda;
     }
 
-    public int getIdVenda() {
-        return idVenda;
+    public void setProdutosVenda(List<Produto> produtosVenda) {
+        this.produtosVenda = produtosVenda;
     }
 
-    public void setIdVenda(int idVenda) {
-        this.idVenda = idVenda;
+    public String getData() {
+        return data;
     }
 
-    public Usuario getUsuario() {
+    public void setData(String data) {
+        this.data = data;
+    }
+
+    public Pessoa getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(Usuario usuario) {
+    public void setUsuario(Pessoa usuario) {
         this.usuario = usuario;
     }
 
@@ -45,34 +42,27 @@ public class Venda {
         this.cliente = cliente;
     }
 
-    public ArrayList<Object> getInfoVenda() {
-        return infoVenda;
-    }
+    @Override
+    public void executar(Lampada l, int qtde) {
 
-    public void setInfoVenda(ArrayList<Object> infoVenda) {
-        this.infoVenda = infoVenda;
-    }
+        if (l.getEstoque() < l.getQuantidade()) {
+            System.out.println("Estoque insuficiente!");
+        } else {
+            int inicial = l.getEstoque();
 
-    public Date getDataVenda() {
-        return dataVenda;
-    }
-
-    public void setDataVenda(Date dataVenda) {
-        this.dataVenda = dataVenda;
-    }
-
-    public ArrayList<Produto> getProdutosVenda() {
-        return produtosVenda;
-    }
-
-    public void setProdutosVenda(ArrayList<Produto> produtosVenda) {
-        this.produtosVenda = produtosVenda;
+            l.setEstoque(l.getEstoque() - qtde);
+            System.out.println("Descrição item: " + l.getNome()
+                    + "\nEstoque inicial: " + inicial
+                    + "\nValor unitário: " + l.getPrecoVenda()
+                    + "\nVendeu: " + qtde + " unidades"
+                    + "\nTotal: R$" + l.getPrecoVenda() * qtde
+                    + "\nEstoque atual: " + l.getEstoque() + "\n");
+        }
     }
 
     @Override
     public String toString() {
-        return "Venda{" + "idVenda=" + this.idVenda + ", usuario=" + this.usuario + ", cliente=" + this.cliente + ", produtosVenda=" + this.produtosVenda + ", infoVenda=" + this.infoVenda + ", dataVenda=" + this.dataVenda + '}';
+        return "DETALHES DA VENDA:\n" + produtosVenda + "\n Data venda: " + data + "\n Usuário: " + usuario + "\n Cliente: " + cliente;
     }
-    
-    
+
 }

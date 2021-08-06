@@ -2,18 +2,18 @@ package sa4;
 
 public class Produto {
 
-    private String codigo;
+    private Long codigo;
     private String nome;
     private Double precoCompra;
     private Double precoVenda;
     private int estoque;
     private int quantidade;
 
-    public String getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 

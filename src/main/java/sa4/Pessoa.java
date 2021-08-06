@@ -3,7 +3,7 @@ package sa4;
 public class Pessoa {
 
     private String nome;
-    private String codigo;
+    private Long codigo;
 
     public String getNome() {
         return nome;
@@ -13,11 +13,11 @@ public class Pessoa {
         this.nome = nome;
     }
 
-    public String getCodigo() {
+    public Long getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(String codigo) {
+    public void setCodigo(Long codigo) {
         this.codigo = codigo;
     }
 

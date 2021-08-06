@@ -18,20 +18,20 @@ public class Principal {
         String hojeFormatado = DateFormat.getDateInstance().format(data);
 
         Pessoa usuario = new Usuario();
-        usuario.setCodigo("355");
+        usuario.setCodigo(355L);
         usuario.setNome("João");
 
         Cliente cliente = new Cliente();
-        cliente.setCodigo("564");
+        cliente.setCodigo(564L);
         cliente.setCpf("12345678900");
         cliente.setNome("Fernanda");
 
         Pessoa fornecedor = new Fornecedor();
-        fornecedor.setCodigo("352");
+        fornecedor.setCodigo(352L);
         fornecedor.setNome("Eletrônicos Atacadista LTDA");
 
         Lampada lampada = new Lampada();
-        lampada.setCodigo("0001");
+        lampada.setCodigo(0001L);
         lampada.setNome("Lâmpada Led biVolt");
         lampada.setEstoque(30);
         lampada.setPrecoCompra(3.50);
@@ -41,7 +41,7 @@ public class Principal {
         lampada.setVoltagem("220V");
 
         Lampada lampada2 = new Lampada();
-        lampada2.setCodigo("0002");
+        lampada2.setCodigo(0002L);
         lampada2.setNome("Lâmpada");
         lampada2.setEstoque(20);
         lampada2.setPrecoCompra(2.50);

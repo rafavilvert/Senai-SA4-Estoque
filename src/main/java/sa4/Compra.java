@@ -49,9 +49,9 @@ public class Compra implements Transacao {
         l.setEstoque(l.getEstoque() + qtde);
         System.out.println("Descrição item: " + l.getNome()
                 + "\nEstoque inicial: " + inicial
-                + "\nValor unitário: " + l.getPrecoCompra()
+                + "\nValor unitário: R$ " + String.format("%.2f", l.getPrecoCompra())
                 + "\nComprou: " + qtde + " unidades"
-                + "\nTotal: R$" + l.getPrecoCompra() * qtde
+                + "\nTotal: R$ " + String.format("%.2f", (l.getPrecoCompra() * qtde))
                 + "\nEstoque atual: " + l.getEstoque() + "\n");
 
     }

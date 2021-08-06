@@ -49,13 +49,12 @@ public class Venda implements Transacao {
             System.out.println("Estoque insuficiente!");
         } else {
             int inicial = l.getEstoque();
-
             l.setEstoque(l.getEstoque() - qtde);
             System.out.println("Descrição item: " + l.getNome()
                     + "\nEstoque inicial: " + inicial
-                    + "\nValor unitário: " + l.getPrecoVenda()
+                    + "\nValor unitário: R$ " + String.format("%.2f", l.getPrecoVenda())
                     + "\nVendeu: " + qtde + " unidades"
-                    + "\nTotal: R$" + l.getPrecoVenda() * qtde
+                    + "\nTotal: R$ " + String.format("%.2f", (l.getPrecoVenda() * qtde))
                     + "\nEstoque atual: " + l.getEstoque() + "\n");
         }
     }

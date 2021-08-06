@@ -10,6 +10,9 @@ public class Venda implements Transacao {
     private Pessoa usuario;
     private Cliente cliente;
 
+    public Venda() {
+    }
+
     public List<Produto> getProdutosVenda() {
         return produtosVenda;
     }

@@ -9,6 +9,9 @@ public class Produto {
     private int estoque;
     private int quantidade;
 
+    public Produto() {
+    }
+
     public Long getCodigo() {
         return codigo;
     }

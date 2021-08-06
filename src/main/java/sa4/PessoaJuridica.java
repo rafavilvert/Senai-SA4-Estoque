@@ -4,6 +4,9 @@ public class PessoaJuridica extends Pessoa {
 
     private String cnpj;
 
+    public PessoaJuridica() {
+    }
+
     public String getCnpj() {
         return cnpj;
     }

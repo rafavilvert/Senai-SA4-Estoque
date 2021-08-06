@@ -5,6 +5,9 @@ public class Pessoa {
     private String nome;
     private Long codigo;
 
+    public Pessoa() {
+    }
+
     public String getNome() {
         return nome;
     }

@@ -10,6 +10,9 @@ public class Compra implements Transacao {
     private Pessoa usuario;
     private Pessoa fornecedor;
 
+    public Compra() {
+    }
+
     public List<Produto> getProdutosCompra() {
         return produtosCompra;
     }

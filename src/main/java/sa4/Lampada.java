@@ -6,6 +6,9 @@ public class Lampada extends Produto {
     private String voltagem;
     private String cor;
 
+    public Lampada() {
+    }
+
     public String getPotencia() {
         return potencia;
     }

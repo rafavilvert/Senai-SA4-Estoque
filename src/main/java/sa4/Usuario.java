@@ -7,6 +7,9 @@ public class Usuario extends PessoaFisica {
     private Venda venda;
     private Compra compra;
 
+    public Usuario() {
+    }
+
     public String getLogin() {
         return login;
     }

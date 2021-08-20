@@ -1,4 +1,4 @@
-package sa4;
+package entidade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,6 @@ public class Venda implements Transacao {
     private String data;
     private Pessoa usuario;
     private Cliente cliente;
-
-    public Venda() {
-    }
 
     public List<Produto> getProdutosVenda() {
         return produtosVenda;
@@ -52,13 +49,13 @@ public class Venda implements Transacao {
             System.out.println("Estoque insuficiente!");
         } else {
             int inicial = l.getEstoque();
+
             l.setEstoque(l.getEstoque() - qtde);
             System.out.println("Descrição item: " + l.getNome()
-                    + "\nCódigo: " + l.getCodigo()
                     + "\nEstoque inicial: " + inicial
-                    + "\nValor unitário: R$ " + String.format("%.2f", l.getPrecoVenda())
+                    + "\nValor unitário: " + l.getPrecoVenda()
                     + "\nVendeu: " + qtde + " unidades"
-                    + "\nTotal: R$ " + String.format("%.2f", (l.getPrecoVenda() * qtde))
+                    + "\nTotal: R$" + l.getPrecoVenda() * qtde
                     + "\nEstoque atual: " + l.getEstoque() + "\n");
         }
     }
@@ -69,4 +66,3 @@ public class Venda implements Transacao {
     }
 
 }
-

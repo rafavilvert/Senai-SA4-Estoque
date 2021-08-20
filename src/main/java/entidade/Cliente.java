@@ -1,11 +1,8 @@
-package sa4;
+package entidade;
 
 public class Cliente extends PessoaFisica {
 
     private Venda venda;
-
-    public Cliente() {
-    }
 
     public Venda getVenda() {
         return venda;

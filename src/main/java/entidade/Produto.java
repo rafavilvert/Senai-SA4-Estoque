@@ -1,22 +1,19 @@
-package sa4;
+package entidade;
 
 public class Produto {
 
-    private Long codigo;
+    private String codigo;
     private String nome;
     private Double precoCompra;
     private Double precoVenda;
     private int estoque;
     private int quantidade;
 
-    public Produto() {
-    }
-
-    public Long getCodigo() {
+    public String getCodigo() {
         return codigo;
     }
 
-    public void setCodigo(Long codigo) {
+    public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
 
@@ -65,4 +62,4 @@ public class Produto {
         return "Produto{" + "nome=" + nome + ", precoCompra=" + precoCompra + ", precoVenda=" + precoVenda + ", estoque=" + estoque + '}';
     }
 
-}'
+}

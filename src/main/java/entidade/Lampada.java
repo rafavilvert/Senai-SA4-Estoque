@@ -1,13 +1,10 @@
-package sa4;
+package entidade;
 
 public class Lampada extends Produto {
 
     private String potencia;
     private String voltagem;
     private String cor;
-
-    public Lampada() {
-    }
 
     public String getPotencia() {
         return potencia;

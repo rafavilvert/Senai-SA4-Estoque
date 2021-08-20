@@ -1,8 +1,5 @@
-package sa4;
+package entidade;
 
 public class Fornecedor extends PessoaJuridica {
-
-    public Fornecedor() {
-    }
 
 }

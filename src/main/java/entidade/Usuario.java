@@ -1,4 +1,4 @@
-package sa4;
+package entidade;
 
 public class Usuario extends PessoaFisica {
 
@@ -6,9 +6,7 @@ public class Usuario extends PessoaFisica {
     private String senha;
     private Venda venda;
     private Compra compra;
-
-    public Usuario() {
-    }
+    private String nivel;
 
     public String getLogin() {
         return login;
@@ -40,6 +38,14 @@ public class Usuario extends PessoaFisica {
 
     public void setCompra(Compra compra) {
         this.compra = compra;
+    }
+
+    public String getNivel() {
+        return nivel;
+    }
+
+    public void setNivel(String nivel) {
+        this.nivel = nivel;
     }
 
 }

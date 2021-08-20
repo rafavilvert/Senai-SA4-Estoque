@@ -1,4 +1,4 @@
-package sa4;
+package entidade;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,9 +9,6 @@ public class Compra implements Transacao {
     private String data;
     private Pessoa usuario;
     private Pessoa fornecedor;
-
-    public Compra() {
-    }
 
     public List<Produto> getProdutosCompra() {
         return produtosCompra;
@@ -51,11 +48,10 @@ public class Compra implements Transacao {
         int inicial = l.getEstoque();
         l.setEstoque(l.getEstoque() + qtde);
         System.out.println("Descrição item: " + l.getNome()
-                + "\nCódigo: " + l.getCodigo()
                 + "\nEstoque inicial: " + inicial
-                + "\nValor unitário: R$ " + String.format("%.2f", l.getPrecoCompra())
+                + "\nValor unitário: " + l.getPrecoCompra()
                 + "\nComprou: " + qtde + " unidades"
-                + "\nTotal: R$ " + String.format("%.2f", (l.getPrecoCompra() * qtde))
+                + "\nTotal: R$" + l.getPrecoCompra() * qtde
                 + "\nEstoque atual: " + l.getEstoque() + "\n");
 
     }

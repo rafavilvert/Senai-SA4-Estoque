@@ -25,6 +25,19 @@ import utils.Conexao;
 public class UsuarioDao {
     private Usuario usuario;
     private Connection conexao = Conexao.getConexao();
+    
+    public static void main(String[] args) {
+        Usuario usuario = new Usuario();
+        UsuarioDao usuarioDao = new UsuarioDao();
+        
+        usuario.setNome("Maria da Silva");
+        usuario.setCpf("873.334.567-12");
+        usuario.setLogin("Maria123");
+        usuario.setSenha("ks4uhn7w");
+        usuario.setNivel("root");
+        
+        usuarioDao.inserir(usuario);
+    }
 
     public void inserir(Usuario usuario) {
         try {
@@ -73,8 +86,8 @@ public class UsuarioDao {
                 usuario.setNome(resultado.getString("nome"));
                 usuario.setLogin(resultado.getString("login"));
                 usuario.setSenha(resultado.getString("senha"));
-                
                 usuario.setNome(resultado.getString("nivel"));
+                
                 usuarios.add(usuario);
             }
             stmt.close();

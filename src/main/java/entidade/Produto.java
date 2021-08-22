@@ -2,19 +2,19 @@ package entidade;
 
 public class Produto {
 
-    private String codigo;
+    private int id;
     private String nome;
     private Double precoCompra;
     private Double precoVenda;
     private int estoque;
     private int quantidade;
 
-    public String getCodigo() {
-        return codigo;
+    public int getId() {
+        return id;
     }
 
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getNome() {

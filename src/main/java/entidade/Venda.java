@@ -4,11 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Venda implements Transacao {
-
+    private int id;
+    private Produto produto;
     private List<Produto> produtosVenda;
     private String data;
     private Pessoa usuario;
     private Cliente cliente;
+    private Double precoTotal;
+    
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
 
     public List<Produto> getProdutosVenda() {
         return produtosVenda;
@@ -42,6 +60,14 @@ public class Venda implements Transacao {
         this.cliente = cliente;
     }
 
+    public Double getPrecoTotal() {
+        return precoTotal;
+    }
+
+    public void setPrecoTotal(Double precoTotal) {
+        this.precoTotal = precoTotal;
+    }
+
     @Override
     public void executar(Lampada l, int qtde) {
 
@@ -62,7 +88,9 @@ public class Venda implements Transacao {
 
     @Override
     public String toString() {
-        return "DETALHES DA VENDA:\n" + produtosVenda + "\n Data venda: " + data + "\n Usuário: " + usuario + "\n Cliente: " + cliente;
+        return "Venda{" + "id=" + id + ", produto=" + produto +  ", data=" + data + ", usuario=" + usuario + ", cliente=" + cliente + ", precoTotal=" + precoTotal + '}';
     }
+
+    
 
 }

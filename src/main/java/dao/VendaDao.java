@@ -4,6 +4,7 @@ import entidade.Cliente;
 import entidade.Produto;
 import entidade.Usuario;
 import entidade.Venda;
+import entidade.Pessoa;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,81 +21,6 @@ public class VendaDao {
 
     private Connection conexao = Conexao.getConexao();
 
-    public static void main(String[] args) {
-        
-        Date data = new Date();
-        String dataHoje = DateFormat.getDateInstance().format(data);
-        
-        Usuario usuario = new Usuario();
-        usuario.setNome("André");
-
-        Cliente cliente = new Cliente();
-        cliente.setNome("Paulo");
-
-        Produto produto = new Produto();
-        produto.setNome("tomada");
-        produto.setPrecoVenda(17.00);
-        produto.setQuantidade(1);
-
-        Venda venda = new Venda();
-        venda.setId(3);
-        venda.setUsuario(usuario);
-        venda.setCliente(cliente);
-        venda.setData(dataHoje);
-        venda.setProduto(produto);
-        venda.setPrecoTotal(produto.getPrecoVenda() * produto.getQuantidade());
-        
-        VendaDao vendaDao = new VendaDao();
-        
-        //1) CADASTRAR UMA VENDA
-        
-        vendaDao.inserir(venda);
-        
-        //2) ATUALIZAR OS DADOS DE UMA VENDA
-        
-        //vendaDao.atualizar(venda);
-        
-        //3) LISTAR TODAS AS VENDAS
-        
-        //List<Venda> vendas = vendaDao.listar();
-        /* System.out.println("==============");
-        System.out.println("TABELA VENDA");
-        System.out.println("==============");
-        for (Venda vd : vendas) {
-            System.out.println("Id: " + vd.getId());
-            System.out.println("Usuario: " + vd.getUsuario().getNome());
-            System.out.println("Cliente: " + vd.getCliente().getNome());
-            System.out.println("Data venda: " + vd.getData());
-            System.out.println("Produto: " + vd.getProduto().getNome());
-            System.out.println("Preco unitário:" + vd.getProduto().getPrecoVenda());
-            System.out.println("Quantidade:" + vd.getProduto().getQuantidade());
-            System.out.println("Total:" + vd.getPrecoTotal());
-            System.out.println("--------------------");
-        }*/
-        
-        //4) BUSCAR OS DADOS DE UMA VENDA: INSERIR A ID COMO PARAMETRO
-        //DO METODO buscar()
-        
-        //Venda venda = vendaDao.buscar(1);
-        /*System.out.println("================");
-        System.out.println("DADOS DA VENDA");
-        System.out.println("================");
-        System.out.println("Id: " + venda.getId());
-        System.out.println("Usuario: " + venda.getUsuario().getNome());
-        System.out.println("Cliente: " + venda.getCliente().getNome());
-        System.out.println("Data venda: " + venda.getData());
-        System.out.println("Produto: " + venda.getProduto().getNome());
-        System.out.println("Preco unitário:" + venda.getProduto().getPrecoVenda());
-        System.out.println("Quantidade:" + venda.getProduto().getQuantidade());
-        System.out.println("Total:" + venda.getPrecoTotal());
-        System.out.println("--------------------");*/
-        
-        //5) REMOVER UMA VENDA: INSERIR A ID COMO PARAMETRO
-        //DO METODO remover()
-        //vendaDao.remover(4);
-        
-    }
-
     public void inserir(Venda venda) {
         try {
             PreparedStatement stmt = conexao.prepareStatement("INSERT INTO venda (usuario,cliente,data,produto,precoVenda,quantidade,precoTotal) VALUES(?,?,?,?,?,?,?)");
@@ -110,8 +36,8 @@ public class VendaDao {
             conexao.close();
             System.out.println("Venda cadastrada com sucesso");
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -131,8 +57,8 @@ public class VendaDao {
             conexao.close();
             System.out.println("Venda atualizada com sucesso");
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
 
     }
@@ -167,8 +93,8 @@ public class VendaDao {
             resultado.close();
             conexao.close();
 
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
         return vendas;
     }
@@ -181,8 +107,8 @@ public class VendaDao {
             stmt.close();
             conexao.close();
             System.out.println("Venda removida com sucesso");
-        } catch (Exception ex) {
-            ex.printStackTrace();
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -222,4 +148,3 @@ public class VendaDao {
 
     }
 }
-

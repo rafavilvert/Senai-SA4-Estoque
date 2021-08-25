@@ -24,15 +24,6 @@ public class FornecedorDao {
 
     private Connection conexao = Conexao.getConexao();
 
-    public static void main(String[] args) {
-        Fornecedor fornecedor = new Fornecedor();
-        FornecedorDao fornecedorDao = new FornecedorDao();
-        fornecedor.setNome("Materiais eletronicos LTDA");
-        fornecedor.setCnpj("84.233.734/0001-33");
-
-        fornecedorDao.inserir(fornecedor);
-    }
-
     public void inserir(Fornecedor fornecedor) {
         try {
             PreparedStatement stmt = conexao.prepareStatement("INSERT INTO fornecedor (nome,cnpj) VALUES(?,?)");
@@ -65,13 +56,13 @@ public class FornecedorDao {
     public List<Fornecedor> listar() {
         List<Fornecedor> fornecedores = new ArrayList<>();
         try {
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM USUARIO");
+            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM FORNECEDOR");
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
                 Fornecedor fornecedor = new Fornecedor();
-                fornecedor.setId(resultado.getInt("id"));
-                fornecedor.setNome(resultado.getString("nome"));
-                fornecedor.setNome(resultado.getString("nivel"));
+                fornecedor.setId(resultado.getInt(1));
+                fornecedor.setNome(resultado.getString(2));
+                fornecedor.setCnpj(resultado.getString(3));
                 fornecedores.add(fornecedor);
             }
             stmt.close();
@@ -103,9 +94,10 @@ public class FornecedorDao {
         try {
             Fornecedor fornecedor = new Fornecedor();
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM fornecedor WHERE id=?");
+            stmt.setInt(1, id);
             ResultSet resultado = stmt.executeQuery();
             resultado.next();
-            fornecedor.setId(resultado.getShort("id"));
+            fornecedor.setId(resultado.getInt("id"));
             fornecedor.setNome(resultado.getString("nome"));
             fornecedor.setCnpj(resultado.getString("cnpj"));
             stmt.close();

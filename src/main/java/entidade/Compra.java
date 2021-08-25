@@ -4,11 +4,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Compra implements Transacao {
-
+    private int id;
+    private Produto produto;
     private List<Produto> produtosCompra = new ArrayList<>();
     private String data;
     private Pessoa usuario;
     private Pessoa fornecedor;
+    private Double precoTotal;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Produto getProduto() {
+        return produto;
+    }
+
+    public void setProduto(Produto produto) {
+        this.produto = produto;
+    }
 
     public List<Produto> getProdutosCompra() {
         return produtosCompra;
@@ -40,6 +58,14 @@ public class Compra implements Transacao {
 
     public void setFornecedor(Pessoa fornecedor) {
         this.fornecedor = fornecedor;
+    }
+
+    public Double getPrecoTotal() {
+        return precoTotal;
+    }
+
+    public void setPrecoTotal(Double precoTotal) {
+        this.precoTotal = precoTotal;
     }
 
     @Override

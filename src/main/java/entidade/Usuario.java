@@ -6,7 +6,7 @@ public class Usuario extends PessoaFisica {
     private String senha;
     private Venda venda;
     private Compra compra;
-    private String nivel;
+    private String cargo;
 
     public String getLogin() {
         return login;
@@ -40,12 +40,14 @@ public class Usuario extends PessoaFisica {
         this.compra = compra;
     }
 
-    public String getNivel() {
-        return nivel;
+    public String getCargo() {
+        return cargo;
     }
 
-    public void setNivel(String nivel) {
-        this.nivel = nivel;
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
     }
+
+    
 
 }

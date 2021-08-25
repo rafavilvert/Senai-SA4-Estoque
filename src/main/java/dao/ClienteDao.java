@@ -7,7 +7,6 @@ package dao;
 
 import entidade.Cliente;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,8 +14,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import entidade.Usuario;
-import entidade.Pessoa;
 import utils.Conexao;
 
 /**
@@ -27,15 +24,6 @@ public class ClienteDao {
 
     private Connection conexao = Conexao.getConexao();
     
-    public static void main(String[] args) {
-        Cliente cliente = new Cliente();
-        ClienteDao clienteDao = new ClienteDao();
-        cliente.setCpf("445.344.645-33");
-        cliente.setNome("Carlos");
-        
-        clienteDao.inserir(cliente);
-    }
-
     public void inserir(Cliente cliente) {
         try {
             PreparedStatement stmt = conexao.prepareStatement("INSERT INTO cliente (cpf,nome) VALUES(?,?)");
@@ -46,8 +34,8 @@ public class ClienteDao {
             stmt.close();
             conexao.close();
             System.out.println("Cliente cadastrado com sucesso");
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception ex) {
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -56,6 +44,7 @@ public class ClienteDao {
             PreparedStatement stmt = conexao.prepareStatement("UPDATE cliente SET cpf=?,nome=? WHERE id=?");
             stmt.setString(1, cliente.getCpf());
             stmt.setString(2, cliente.getNome());
+            stmt.setInt(3,cliente.getId());
             stmt.executeUpdate();
             stmt.close();
             conexao.close();
@@ -106,6 +95,7 @@ public class ClienteDao {
         try {
             Cliente cliente = new Cliente();
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM cliente WHERE id=?");
+            stmt.setInt(1,id);
             ResultSet resultado = stmt.executeQuery();
             resultado.next();
             cliente.setId(resultado.getShort("id"));

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import entidade.Produto;
@@ -21,19 +16,8 @@ import utils.Conexao;
  * @author USUARIO
  */
 public class ProdutoDao {
-    
+
     private Connection conexao = Conexao.getConexao();
-    
-    public static void main(String[] args) {
-        Produto produto = new Produto();
-        ProdutoDao produtoDao = new ProdutoDao();
-        produto.setNome("Lampada Led");
-        produto.setPrecoCompra(3.50);
-        produto.setPrecoVenda(12.50);
-        produto.setEstoque(50);
-        
-        produtoDao.inserir(produto);
-    }
 
     public void inserir(Produto produto) {
         try {
@@ -42,7 +26,6 @@ public class ProdutoDao {
             stmt.setDouble(2, produto.getPrecoCompra());
             stmt.setDouble(3, produto.getPrecoVenda());
             stmt.setInt(4, produto.getEstoque());
-            
             stmt.executeUpdate();
             stmt.close();
             conexao.close();
@@ -72,7 +55,7 @@ public class ProdutoDao {
     public List<Produto> listar() {
         List<Produto> produtos = new ArrayList<>();
         try {
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM USUARIO");
+            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM PRODUTO");
             ResultSet resultado = stmt.executeQuery();
             while (resultado.next()) {
                 Produto produto = new Produto();
@@ -81,7 +64,7 @@ public class ProdutoDao {
                 produto.setPrecoCompra(resultado.getDouble("precoCompra"));
                 produto.setPrecoVenda(resultado.getDouble("precoVenda"));
                 produto.setEstoque(resultado.getInt("estoque"));
-                
+
                 produtos.add(produto);
             }
             stmt.close();
@@ -113,6 +96,7 @@ public class ProdutoDao {
         try {
             Produto produto = new Produto();
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM produto WHERE id=?");
+            stmt.setInt(1, id);
             ResultSet resultado = stmt.executeQuery();
             resultado.next();
             produto.setId(resultado.getInt("id"));

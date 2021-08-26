@@ -63,11 +63,14 @@ public class ClienteDao {
         try {
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM CLIENTE");
             ResultSet resultado = stmt.executeQuery();
+            
             while (resultado.next()) {
                 Cliente cliente = new Cliente();
+                
                 cliente.setId(resultado.getInt("id"));
                 cliente.setCpf(resultado.getString("cpf"));
                 cliente.setNome(resultado.getString("nome"));
+                
                 clientes.add(cliente);
             }
             stmt.close();

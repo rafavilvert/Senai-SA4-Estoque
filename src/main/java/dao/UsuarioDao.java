@@ -72,8 +72,10 @@ public class UsuarioDao {
             ResultSet resultado;
             try ( PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM USUARIO")) {
                 resultado = stmt.executeQuery();
+                
                 while (resultado.next()) {
                     Usuario usuario = new Usuario();
+                    
                     usuario.setId(resultado.getInt("id"));
                     usuario.setNome(resultado.getString("nome"));
                     usuario.setCpf(resultado.getString("cpf"));

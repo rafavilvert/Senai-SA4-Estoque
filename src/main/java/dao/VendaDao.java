@@ -38,9 +38,8 @@ public class VendaDao {
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
     }
 
@@ -62,23 +61,25 @@ public class VendaDao {
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
 
     }
 
     public List<Venda> listar() throws SQLException {
         List<Venda> vendas = new ArrayList<>();
+
         try {
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM VENDA");
             ResultSet resultado = stmt.executeQuery();
+            
             while (resultado.next()) {
                 Venda venda = new Venda();
                 Usuario usuario = new Usuario();
                 Cliente cliente = new Cliente();
                 Produto produto = new Produto();
+
                 venda.setUsuario(usuario);
                 venda.setCliente(cliente);
                 venda.setProduto(produto);
@@ -100,9 +101,8 @@ public class VendaDao {
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
         return vendas;
     }
@@ -117,9 +117,8 @@ public class VendaDao {
             System.out.println("Venda removida com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
     }
 
@@ -153,9 +152,8 @@ public class VendaDao {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro ao buscar a venda", ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
 
     }

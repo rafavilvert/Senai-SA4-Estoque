@@ -64,11 +64,14 @@ public class FornecedorDao {
         try {
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM FORNECEDOR");
             ResultSet resultado = stmt.executeQuery();
+            
             while (resultado.next()) {
                 Fornecedor fornecedor = new Fornecedor();
+                
                 fornecedor.setId(resultado.getInt(1));
                 fornecedor.setNome(resultado.getString(2));
                 fornecedor.setCnpj(resultado.getString(3));
+                
                 fornecedores.add(fornecedor);
             }
             stmt.close();

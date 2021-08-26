@@ -64,6 +64,7 @@ public class ProdutoDao {
 
             while (resultado.next()) {
                 Produto produto = new Produto();
+                
                 produto.setId(resultado.getInt("id"));
                 produto.setNome(resultado.getString("nome"));
                 produto.setPrecoCompra(resultado.getDouble("precoCompra"));

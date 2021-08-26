@@ -77,14 +77,17 @@ public class CompraDao {
         try {
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM COMPRA");
             ResultSet resultado = stmt.executeQuery();
+            
             while (resultado.next()) {
                 Compra compra = new Compra();
                 Usuario usuario = new Usuario();
                 Fornecedor fornecedor = new Fornecedor();
                 Produto produto = new Produto();
+                
                 compra.setUsuario(usuario);
                 compra.setFornecedor(fornecedor);
                 compra.setProduto(produto);
+                
                 compra.setId(resultado.getInt("id"));
                 compra.getUsuario().setNome(resultado.getString("usuario"));
                 compra.getFornecedor().setNome(resultado.getString("fornecedor"));
@@ -96,6 +99,7 @@ public class CompraDao {
                 compra.setUsuario(usuario);
                 compra.setFornecedor(fornecedor);
                 compra.setProduto(produto);
+                
                 compras.add(compra);
             }
             stmt.close();

@@ -336,7 +336,7 @@ public class Principal {
         
         //2) ATUALIZAR OS DADOS DE UMA VENDA: INSERIR A ID QUE SE DESEJA ALTERAR
         //NO PARAMETRO DO METODO setId()
-        
+        /*
         venda.setId(2);
         usuario.setNome("Joice");
         venda.setUsuario(usuario);
@@ -349,7 +349,7 @@ public class Principal {
         venda.setProduto(produto);
         venda.setPrecoTotal(produto.getPrecoVenda() * produto.getQuantidade());
         vendaDao.atualizar(venda);
-        /**/
+        */
         
         //3) LISTAR TODAS AS VENDAS
         /*

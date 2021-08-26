@@ -320,15 +320,15 @@ public class Principal {
         */
         
         //1) CADASTRAR UMA VENDA
-        /*
-        usuario.setNome("Jéssica");
+        /* 
+        usuario.setNome("Roberto");
         venda.setUsuario(usuario);
-        cliente.setNome("Adilson");
+        cliente.setNome("Marcos");
         venda.setCliente(cliente);
         venda.setData(dataHoje);
-        produto.setNome("toalha banho");
+        produto.setNome("pilhas duracell");
         produto.setPrecoVenda(35.00);
-        produto.setQuantidade(2);
+        produto.setQuantidade(3);
         venda.setProduto(produto);
         venda.setPrecoTotal(produto.getPrecoVenda() * produto.getQuantidade());
         vendaDao.inserir(venda);
@@ -336,20 +336,20 @@ public class Principal {
         
         //2) ATUALIZAR OS DADOS DE UMA VENDA: INSERIR A ID QUE SE DESEJA ALTERAR
         //NO PARAMETRO DO METODO setId()
-        /*
-        venda.setId(3);
-        usuario.setNome("andrea");
+        
+        venda.setId(2);
+        usuario.setNome("Joice");
         venda.setUsuario(usuario);
-        cliente.setNome("claudia");
+        cliente.setNome("Carlos");
         venda.setCliente(cliente);
         venda.setData(dataHoje);
-        produto.setNome("lapis");
-        produto.setPrecoVenda(1.50);
-        produto.setQuantidade(5);
+        produto.setNome("luvas");
+        produto.setPrecoVenda(10.50);
+        produto.setQuantidade(3);
         venda.setProduto(produto);
         venda.setPrecoTotal(produto.getPrecoVenda() * produto.getQuantidade());
         vendaDao.atualizar(venda);
-        */
+        /**/
         
         //3) LISTAR TODAS AS VENDAS
         /*

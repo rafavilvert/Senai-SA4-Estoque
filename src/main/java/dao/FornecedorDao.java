@@ -102,9 +102,8 @@ public class FornecedorDao {
     }
 
     public Fornecedor buscar(int id) throws SQLException {
-
+        Fornecedor fornecedor = new Fornecedor();
         try {
-            Fornecedor fornecedor = new Fornecedor();
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM fornecedor WHERE id=?");
             stmt.setInt(1, id);
             ResultSet resultado = stmt.executeQuery();

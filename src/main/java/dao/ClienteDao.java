@@ -23,7 +23,7 @@ import utils.Conexao;
 public class ClienteDao {
 
     private Connection conexao = Conexao.getConexao();
-    
+
     public void inserir(Cliente cliente) throws SQLException {
         try {
             PreparedStatement stmt = conexao.prepareStatement("INSERT INTO cliente (cpf,nome) VALUES(?,?)");
@@ -36,9 +36,8 @@ public class ClienteDao {
             System.out.println("Cliente cadastrado com sucesso");
         } catch (Exception ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
     }
 
@@ -47,16 +46,15 @@ public class ClienteDao {
             PreparedStatement stmt = conexao.prepareStatement("UPDATE cliente SET cpf=?,nome=? WHERE id=?");
             stmt.setString(1, cliente.getCpf());
             stmt.setString(2, cliente.getNome());
-            stmt.setInt(3,cliente.getId());
+            stmt.setInt(3, cliente.getId());
             stmt.executeUpdate();
             stmt.close();
             conexao.close();
             System.out.println("Cliente atualizado com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
     }
 
@@ -79,9 +77,8 @@ public class ClienteDao {
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class
                     .getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
         return clientes;
     }
@@ -96,18 +93,17 @@ public class ClienteDao {
             System.out.println("Cliente removido com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
     }
 
     public Cliente buscar(int id) throws SQLException {
-
+        Cliente cliente = new Cliente();
+        
         try {
-            Cliente cliente = new Cliente();
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM cliente WHERE id=?");
-            stmt.setInt(1,id);
+            stmt.setInt(1, id);
             ResultSet resultado = stmt.executeQuery();
             resultado.next();
             cliente.setId(resultado.getShort("id"));
@@ -120,9 +116,8 @@ public class ClienteDao {
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro no metodo buscar" + ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
 
     }

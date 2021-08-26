@@ -32,9 +32,8 @@ public class ProdutoDao {
             System.out.println("Produto cadastrado com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
     }
 
@@ -52,9 +51,8 @@ public class ProdutoDao {
             System.out.println("Produto atualizado com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
     }
 
@@ -63,7 +61,7 @@ public class ProdutoDao {
         try {
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM PRODUTO");
             ResultSet resultado = stmt.executeQuery();
-            
+
             while (resultado.next()) {
                 Produto produto = new Produto();
                 produto.setId(resultado.getInt("id"));
@@ -81,9 +79,8 @@ public class ProdutoDao {
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class
                     .getName()).log(Level.SEVERE, null, ex);
-        }
-         finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
         return produtos;
     }
@@ -98,16 +95,14 @@ public class ProdutoDao {
             System.out.println("Produto removido com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-         finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
     }
 
     public Produto buscar(int id) throws SQLException {
-
+        Produto produto = new Produto();
         try {
-            Produto produto = new Produto();
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM produto WHERE id=?");
             stmt.setInt(1, id);
             ResultSet resultado = stmt.executeQuery();
@@ -124,9 +119,8 @@ public class ProdutoDao {
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro no metodo buscar" + ex);
-        }
-         finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
 
     }

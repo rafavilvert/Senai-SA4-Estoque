@@ -116,9 +116,8 @@ public class UsuarioDao {
     }
 
     public Usuario buscar(int id) throws SQLException {
-
+        Usuario usuario = new Usuario();
         try {
-            Usuario usuario = new Usuario();
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE id=?");
             stmt.setInt(1, id);
             ResultSet resultado = stmt.executeQuery();

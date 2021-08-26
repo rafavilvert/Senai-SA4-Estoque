@@ -42,9 +42,8 @@ public class CompraDao {
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
     }
 
@@ -66,9 +65,8 @@ public class CompraDao {
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
 
     }
@@ -106,9 +104,8 @@ public class CompraDao {
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
         return compras;
     }
@@ -123,27 +120,24 @@ public class CompraDao {
             System.out.println("Compra removida com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
     }
 
     public Compra buscar(int id) throws SQLException {
+        Compra compra = new Compra();
+        Usuario usuario = new Usuario();
+        Fornecedor fornecedor = new Fornecedor();
+        Produto produto = new Produto();
+        compra.setUsuario(usuario);
+        compra.setFornecedor(fornecedor);
+        compra.setProduto(produto);
 
         try {
-            Compra compra = new Compra();
-            Usuario usuario = new Usuario();
-            Fornecedor fornecedor = new Fornecedor();
-            Produto produto = new Produto();
-            compra.setUsuario(usuario);
-            compra.setFornecedor(fornecedor);
-            compra.setProduto(produto);
-
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM compra WHERE id=?");
             stmt.setInt(1, id);
             ResultSet resultado = stmt.executeQuery();
-
             resultado.next();
             compra.setId(resultado.getInt("id"));
             compra.getUsuario().setNome(resultado.getString("usuario"));
@@ -161,9 +155,8 @@ public class CompraDao {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro ao buscar a compra", ex);
-        }
-        finally{
-           conexao.close();
+        } finally {
+            conexao.close();
         }
 
     }

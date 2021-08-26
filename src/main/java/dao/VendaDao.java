@@ -71,7 +71,6 @@ public class VendaDao {
 
     public List<Venda> listar() throws SQLException {
         List<Venda> vendas = new ArrayList<>();
-
         try {
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM VENDA");
             ResultSet resultado = stmt.executeQuery();
@@ -125,20 +124,18 @@ public class VendaDao {
     }
 
     public Venda buscar(int id) throws SQLException {
+        Venda venda = new Venda();
+        Usuario usuario = new Usuario();
+        Cliente cliente = new Cliente();
+        Produto produto = new Produto();
+        venda.setUsuario(usuario);
+        venda.setCliente(cliente);
+        venda.setProduto(produto);
 
         try {
-            Venda venda = new Venda();
-            Usuario usuario = new Usuario();
-            Cliente cliente = new Cliente();
-            Produto produto = new Produto();
-            venda.setUsuario(usuario);
-            venda.setCliente(cliente);
-            venda.setProduto(produto);
-
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM venda WHERE id=?");
             stmt.setInt(1, id);
             ResultSet resultado = stmt.executeQuery();
-
             resultado.next();
             venda.setId(resultado.getInt("id"));
             venda.getUsuario().setNome(resultado.getString("usuario"));

@@ -19,6 +19,7 @@ public class Principal {
     public static void main(String[] args) {
 
         
+        /*
         Date data = new Date();
         String dataHoje = DateFormat.getDateInstance().format(data);
 
@@ -85,6 +86,7 @@ public class Principal {
         venda.executar(lampada, 3);
         venda.executar(lampada2, 5);
         System.out.println(venda);
+        */
     }
   }
 

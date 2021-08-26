@@ -19,7 +19,7 @@ public class UsuarioDao {
 
     private Connection conexao = Conexao.getConexao();
 
-    public void inserir(Usuario usuario) {
+    public void inserir(Usuario usuario) throws SQLException {
 
         try {
             PreparedStatement stmt = conexao.prepareStatement("INSERT INTO usuario (nome,cpf,login,senha,cargo) VALUES(?,?,?,?,?)");
@@ -38,9 +38,12 @@ public class UsuarioDao {
             Logger.getLogger(UsuarioDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
     }
 
-    public void atualizar(Usuario usuario) {
+    public void atualizar(Usuario usuario) throws SQLException {
         try {
             PreparedStatement stmt = conexao.prepareStatement("UPDATE usuario SET nome=?,cpf=?,login=?,senha=?,cargo=? WHERE id=?");
             stmt.setString(1, usuario.getNome());
@@ -58,9 +61,12 @@ public class UsuarioDao {
             Logger.getLogger(UsuarioDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
     }
 
-    public List<Usuario> listar() {
+    public List<Usuario> listar() throws SQLException {
         List<Usuario> usuarios = new ArrayList<>();
         try {
             ResultSet resultado;
@@ -85,10 +91,13 @@ public class UsuarioDao {
             Logger.getLogger(UsuarioDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
         return usuarios;
     }
 
-    public void remover(int id) {
+    public void remover(int id) throws SQLException {
         try {
             try ( PreparedStatement stmt = conexao.prepareStatement("DELETE FROM usuario WHERE id=?")) {
                 stmt.setInt(1, id);
@@ -101,9 +110,12 @@ public class UsuarioDao {
             Logger.getLogger(UsuarioDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
     }
 
-    public Usuario buscar(int id) {
+    public Usuario buscar(int id) throws SQLException {
 
         try {
             Usuario usuario = new Usuario();
@@ -125,6 +137,9 @@ public class UsuarioDao {
             Logger.getLogger(UsuarioDao.class
                     .getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro ao buscar a usuario", ex);
+        }
+        finally{
+           conexao.close();
         }
 
     }

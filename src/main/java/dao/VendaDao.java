@@ -21,7 +21,7 @@ public class VendaDao {
 
     private Connection conexao = Conexao.getConexao();
 
-    public void inserir(Venda venda) {
+    public void inserir(Venda venda) throws SQLException {
         try {
             PreparedStatement stmt = conexao.prepareStatement("INSERT INTO venda (usuario,cliente,data,produto,precoVenda,quantidade,precoTotal) VALUES(?,?,?,?,?,?,?)");
             stmt.setString(1, venda.getUsuario().getNome());
@@ -39,9 +39,12 @@ public class VendaDao {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
     }
 
-    public void atualizar(Venda venda) {
+    public void atualizar(Venda venda) throws SQLException {
         try {
             PreparedStatement stmt = conexao.prepareStatement("UPDATE venda SET usuario=?,cliente=?,data=?,produto=?,precoVenda=?,quantidade=?,precoTotal=? WHERE id=?");
             stmt.setString(1, venda.getUsuario().getNome());
@@ -60,10 +63,13 @@ public class VendaDao {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
 
     }
 
-    public List<Venda> listar() {
+    public List<Venda> listar() throws SQLException {
         List<Venda> vendas = new ArrayList<>();
 
         try {
@@ -96,10 +102,13 @@ public class VendaDao {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
         return vendas;
     }
 
-    public void remover(int id) {
+    public void remover(int id) throws SQLException {
         try {
             PreparedStatement stmt = conexao.prepareStatement("DELETE FROM venda WHERE id=?");
             stmt.setInt(1, id);
@@ -110,9 +119,12 @@ public class VendaDao {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
     }
 
-    public Venda buscar(int id) {
+    public Venda buscar(int id) throws SQLException {
 
         try {
             Venda venda = new Venda();
@@ -144,6 +156,9 @@ public class VendaDao {
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro ao buscar a venda", ex);
+        }
+        finally{
+           conexao.close();
         }
 
     }

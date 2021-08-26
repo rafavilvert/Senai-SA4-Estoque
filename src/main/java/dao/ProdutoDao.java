@@ -19,7 +19,7 @@ public class ProdutoDao {
 
     private Connection conexao = Conexao.getConexao();
 
-    public void inserir(Produto produto) {
+    public void inserir(Produto produto) throws SQLException {
         try {
             PreparedStatement stmt = conexao.prepareStatement("INSERT INTO produto (nome,precoCompra,precoVenda,estoque) VALUES(?,?,?,?)");
             stmt.setString(1, produto.getNome());
@@ -33,9 +33,12 @@ public class ProdutoDao {
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
     }
 
-    public void atualizar(Produto produto) {
+    public void atualizar(Produto produto) throws SQLException {
         try {
             PreparedStatement stmt = conexao.prepareStatement("UPDATE produto SET nome=?,precoCompra=?,precoVenda=?,estoque=? WHERE id=?");
             stmt.setString(1, produto.getNome());
@@ -50,13 +53,17 @@ public class ProdutoDao {
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+         finally{
+           conexao.close();
+        }
     }
 
-    public List<Produto> listar() {
+    public List<Produto> listar() throws SQLException {
         List<Produto> produtos = new ArrayList<>();
         try {
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM PRODUTO");
             ResultSet resultado = stmt.executeQuery();
+            
             while (resultado.next()) {
                 Produto produto = new Produto();
                 produto.setId(resultado.getInt("id"));
@@ -75,10 +82,13 @@ public class ProdutoDao {
             Logger.getLogger(ProdutoDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+         finally{
+           conexao.close();
+        }
         return produtos;
     }
 
-    public void remover(int id) {
+    public void remover(int id) throws SQLException {
         try {
             PreparedStatement stmt = conexao.prepareStatement("DELETE FROM produto WHERE id=?");
             stmt.setInt(1, id);
@@ -89,9 +99,12 @@ public class ProdutoDao {
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+         finally{
+           conexao.close();
+        }
     }
 
-    public Produto buscar(int id) {
+    public Produto buscar(int id) throws SQLException {
 
         try {
             Produto produto = new Produto();
@@ -111,7 +124,9 @@ public class ProdutoDao {
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro no metodo buscar" + ex);
-
+        }
+         finally{
+           conexao.close();
         }
 
     }

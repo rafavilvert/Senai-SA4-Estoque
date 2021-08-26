@@ -24,7 +24,7 @@ public class FornecedorDao {
 
     private Connection conexao = Conexao.getConexao();
 
-    public void inserir(Fornecedor fornecedor) {
+    public void inserir(Fornecedor fornecedor) throws SQLException {
         try {
             PreparedStatement stmt = conexao.prepareStatement("INSERT INTO fornecedor (nome,cnpj) VALUES(?,?)");
             stmt.setString(1, fornecedor.getNome());
@@ -36,9 +36,12 @@ public class FornecedorDao {
         } catch (SQLException ex) {
             Logger.getLogger(FornecedorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
     }
 
-    public void atualizar(Fornecedor fornecedor) {
+    public void atualizar(Fornecedor fornecedor) throws SQLException {
         try {
             PreparedStatement stmt = conexao.prepareStatement("UPDATE fornecedor SET nome=?,cnpj=? WHERE id=?");
             stmt.setString(1, fornecedor.getNome());
@@ -51,9 +54,12 @@ public class FornecedorDao {
         } catch (SQLException ex) {
             Logger.getLogger(FornecedorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
     }
 
-    public List<Fornecedor> listar() {
+    public List<Fornecedor> listar() throws SQLException {
         List<Fornecedor> fornecedores = new ArrayList<>();
         try {
             PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM FORNECEDOR");
@@ -73,10 +79,13 @@ public class FornecedorDao {
             Logger.getLogger(FornecedorDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
         return fornecedores;
     }
 
-    public void remover(int id) {
+    public void remover(int id) throws SQLException {
         try {
             PreparedStatement stmt = conexao.prepareStatement("DELETE FROM fornecedor WHERE id=?");
             stmt.setInt(1, id);
@@ -87,9 +96,12 @@ public class FornecedorDao {
         } catch (SQLException ex) {
             Logger.getLogger(FornecedorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
+        finally{
+           conexao.close();
+        }
     }
 
-    public Fornecedor buscar(int id) {
+    public Fornecedor buscar(int id) throws SQLException {
 
         try {
             Fornecedor fornecedor = new Fornecedor();
@@ -107,7 +119,9 @@ public class FornecedorDao {
         } catch (SQLException ex) {
             Logger.getLogger(FornecedorDao.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro no metodo buscar" + ex);
-
+        }
+        finally{
+           conexao.close();
         }
 
     }

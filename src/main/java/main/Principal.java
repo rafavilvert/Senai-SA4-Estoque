@@ -12,6 +12,7 @@ import entidade.Fornecedor;
 import entidade.Produto;
 import entidade.Usuario;
 import entidade.Venda;
+import java.sql.SQLException;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -22,7 +23,7 @@ import java.util.List;
  */
 public class Principal {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException {
         
         Date data = new Date();
         String dataHoje = DateFormat.getDateInstance().format(data);
@@ -195,13 +196,15 @@ public class Principal {
         
         
         //1) CADASTRAR PRODUTO
+       
         /*
-        produto.setNome("chave de fenda");
+        produto.setNome("chave inglesa");
         produto.setPrecoCompra(5.50);
         produto.setPrecoVenda(18.00);
         produto.setEstoque(18);
         produtoDao.inserir(produto);
         */
+         
         //2) AUTALIZAR PRODUTO: INSERIR A ID QUE SE DESEJA ALTERAR
         //NO PARAMETRO DO METODO setId()
         /*

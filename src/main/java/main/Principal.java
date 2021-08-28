@@ -44,14 +44,14 @@ public class Principal {
         //DESMARQUE OS COMENTARIOS PARA SELECIONAR UMA AÇÃO
         
         //1) CADASTRAR UM USUARIO
-        /*
-        usuario.setNome("joana");
-        usuario.setCpf("872.987.432-29");
-        usuario.setLogin("paula123");
-        usuario.setSenha("m883nagaf3");
+        
+        usuario.setNome("Gabriel");
+        usuario.setCpf("231.377.400-21");
+        usuario.setLogin("gabriel123");
+        usuario.setSenha("3jdj887a");
         usuario.setCargo("vendedor");
         usuarioDao.inserir(usuario);
-        */
+        
         
         
         //2) ATUALIZAR UM USUARIO

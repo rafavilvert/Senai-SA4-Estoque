@@ -19,87 +19,67 @@ public class UsuarioDao {
 
     private Connection conexao = Conexao.getConexao();
 
-    public void inserir(Usuario usuario) throws SQLException {
+    public void inserir(Usuario usuario) {
 
         try {
-            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO usuario (nome,cpf,login,senha,cargo) VALUES(?,?,?,?,?)");
+            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO usuario (nome,login,senha) VALUES(?,?,?)");
             stmt.setString(1, usuario.getNome());
-            stmt.setString(2, usuario.getCpf());
-            stmt.setString(3, usuario.getLogin());
-            stmt.setString(4, usuario.getSenha());
-            stmt.setString(5, usuario.getCargo());
-
+            stmt.setString(2, usuario.getLogin());
+            stmt.setString(3, usuario.getSenha());
             stmt.executeUpdate();
             stmt.close();
-            conexao.close();
+
             System.out.println("Usuario cadastrado com sucesso");
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        finally{
-           conexao.close();
-        }
     }
 
-    public void atualizar(Usuario usuario) throws SQLException {
+    public void atualizar(Usuario usuario) {
         try {
-            PreparedStatement stmt = conexao.prepareStatement("UPDATE usuario SET nome=?,cpf=?,login=?,senha=?,cargo=? WHERE id=?");
+            PreparedStatement stmt = conexao.prepareStatement("UPDATE usuario SET nome=?,login=?,senha=? WHERE id=?");
             stmt.setString(1, usuario.getNome());
-            stmt.setString(2, usuario.getCpf());
-            stmt.setString(3, usuario.getLogin());
-            stmt.setString(4, usuario.getSenha());
-            stmt.setString(5, usuario.getCargo());
-            stmt.setInt(6, usuario.getId());
+            stmt.setString(2, usuario.getLogin());
+            stmt.setString(3, usuario.getSenha());
+            stmt.setInt(4, usuario.getId());
             stmt.executeUpdate();
             stmt.close();
-            conexao.close();
+
             System.out.println("Usuario atualizado com sucesso");
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        finally{
-           conexao.close();
-        }
     }
 
-    public List<Usuario> listar() throws SQLException {
+    public List<Usuario> listar() {
         List<Usuario> usuarios = new ArrayList<>();
         try {
             ResultSet resultado;
             try ( PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM USUARIO")) {
                 resultado = stmt.executeQuery();
-                
                 while (resultado.next()) {
                     Usuario usuario = new Usuario();
-                    
                     usuario.setId(resultado.getInt("id"));
                     usuario.setNome(resultado.getString("nome"));
-                    usuario.setCpf(resultado.getString("cpf"));
                     usuario.setLogin(resultado.getString("login"));
                     usuario.setSenha(resultado.getString("senha"));
-                    usuario.setCargo(resultado.getString("cargo"));
-
                     usuarios.add(usuario);
                 }
             }
             resultado.close();
-            conexao.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        finally{
-           conexao.close();
-        }
         return usuarios;
     }
 
-    public void remover(int id) throws SQLException {
+    public void remover(int id) {
         try {
             try ( PreparedStatement stmt = conexao.prepareStatement("DELETE FROM usuario WHERE id=?")) {
                 stmt.setInt(1, id);
@@ -112,35 +92,35 @@ public class UsuarioDao {
             Logger.getLogger(UsuarioDao.class
                     .getName()).log(Level.SEVERE, null, ex);
         }
-        finally{
-           conexao.close();
-        }
     }
 
-    public Usuario buscar(int id) throws SQLException {
+    public Usuario autenticar(String login, String senha) throws SQLException {
+
         Usuario usuario = new Usuario();
+
         try {
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE id=?");
-            stmt.setInt(1, id);
+            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE login=? and senha=?");
+            stmt.setString(1, login);
+            stmt.setString(2, senha);
             ResultSet resultado = stmt.executeQuery();
-            resultado.next();
-            usuario.setId(resultado.getInt("id"));
-            usuario.setNome(resultado.getString("nome"));
-            usuario.setCpf(resultado.getString("cpf"));
-            usuario.setLogin(resultado.getString("login"));
-            usuario.setSenha(resultado.getString("senha"));
-            usuario.setCargo(resultado.getString("cargo"));
-            stmt.close();
-            resultado.close();
-            conexao.close();
-            return usuario;
+
+            if (resultado.next()) {
+                usuario.setNome(resultado.getString("nome"));
+                stmt.close();
+                resultado.close();
+
+                return usuario;
+            } else {
+                stmt.close();
+                resultado.close();
+
+                return null;
+            }
+
         } catch (SQLException ex) {
-            Logger.getLogger(UsuarioDao.class
-                    .getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException("Erro ao buscar a usuario", ex);
-        }
-        finally{
-           conexao.close();
+            Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro ao buscar a usuario" + ex);
+            return null;
         }
 
     }

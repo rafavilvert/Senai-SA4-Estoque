@@ -44,24 +44,22 @@ public class Principal {
         //DESMARQUE OS COMENTARIOS PARA SELECIONAR UMA AÇÃO
         
         //1) CADASTRAR UM USUARIO
-        
+        /*
         usuario.setNome("Gabriel");
-        usuario.setCpf("231.377.400-21");
         usuario.setLogin("gabriel123");
         usuario.setSenha("3jdj887a");
-        usuario.setCargo("vendedor");
-        usuarioDao.inserir(usuario);
         
+        usuarioDao.inserir(usuario);
+        */
         
         
         //2) ATUALIZAR UM USUARIO
         /*
         usuario.setId(6);
         usuario.setNome("Helena");
-        usuario.setCpf("872.987.432-29");
         usuario.setLogin("paula123");
         usuario.setSenha("m883nagaf3");
-        usuario.setCargo("vendedor");
+        
         usuarioDao.atualizar(usuario);
         */
         
@@ -77,26 +75,24 @@ public class Principal {
         System.out.println("=====================");
         for(Usuario us:usuarios){
             System.out.println("Nome: "+us.getNome());
-            System.out.println("Cpf: "+us.getCpf());
             System.out.println("Login: "+us.getLogin());
             System.out.println("Senha: "+us.getSenha());
-            System.out.println("Cargo:"+us.getCargo());
+            
             System.out.println("--------------------");
         }
         */
         
         //5) BUSCAR UM USUARIO
         /*
-        usuario = usuarioDao.buscar(4);
+        usuario = usuarioDao.buscar(6);
         System.out.println("================");
         System.out.println("DADOS DO USUARIO");
         System.out.println("================");
         System.out.println("Id: " + usuario.getId());
         System.out.println("Nome: " + usuario.getNome());
-        System.out.println("Cpf: " + usuario.getCpf());
         System.out.println("Login: " + usuario.getLogin());
         System.out.println("Senha: " + usuario.getSenha());
-        System.out.println("Cargo: " + usuario.getCargo());
+        
         System.out.println("--------------------");
         */
         

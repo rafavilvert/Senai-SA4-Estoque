@@ -4,6 +4,7 @@ public class Produto {
 
     private int id;
     private String nome;
+    private String categoria;
     private Double precoCompra;
     private Double precoVenda;
     private int estoque;
@@ -17,7 +18,6 @@ public class Produto {
         this.id = id;
     }
 
-   
     public String getNome() {
         return nome;
     }
@@ -26,19 +26,27 @@ public class Produto {
         this.nome = nome;
     }
 
-    public double getPrecoCompra() {
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
+    public Double getPrecoCompra() {
         return precoCompra;
     }
 
-    public void setPrecoCompra(double precoCompra) {
+    public void setPrecoCompra(Double precoCompra) {
         this.precoCompra = precoCompra;
     }
 
-    public double getPrecoVenda() {
+    public Double getPrecoVenda() {
         return precoVenda;
     }
 
-    public void setPrecoVenda(double precoVenda) {
+    public void setPrecoVenda(Double precoVenda) {
         this.precoVenda = precoVenda;
     }
 
@@ -60,7 +68,8 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "Produto{" + "nome=" + nome + ", precoCompra=" + precoCompra + ", precoVenda=" + precoVenda + ", estoque=" + estoque + '}';
+        return "Produto{" + "id=" + id + ", nome=" + nome + ", categoria=" + categoria + ", precoCompra=" + precoCompra + ", precoVenda=" + precoVenda + ", estoque=" + estoque + '}';
     }
 
+    
 }

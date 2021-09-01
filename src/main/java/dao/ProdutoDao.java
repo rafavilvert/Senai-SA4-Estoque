@@ -21,11 +21,12 @@ public class ProdutoDao {
 
     public void inserir(Produto produto) throws SQLException {
         try {
-            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO produto (nome,precoCompra,precoVenda,estoque) VALUES(?,?,?,?)");
+            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO produto (nome,precoCompra,precoVenda,estoque,categoria) VALUES(?,?,?,?,?)");
             stmt.setString(1, produto.getNome());
             stmt.setDouble(2, produto.getPrecoCompra());
             stmt.setDouble(3, produto.getPrecoVenda());
             stmt.setInt(4, produto.getEstoque());
+            stmt.setString(5, produto.getCategoria());
             stmt.executeUpdate();
             stmt.close();
             conexao.close();

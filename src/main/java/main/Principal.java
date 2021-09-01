@@ -194,10 +194,12 @@ public class Principal {
         //1) CADASTRAR PRODUTO
        
         /*
-        produto.setNome("chave inglesa");
-        produto.setPrecoCompra(5.50);
-        produto.setPrecoVenda(18.00);
-        produto.setEstoque(18);
+        produto.setNome("furadeira");
+        produto.setPrecoCompra(95.50);
+        produto.setPrecoVenda(180.00);
+        produto.setEstoque(5);
+        produto.setCategoria("material de construção");
+        
         produtoDao.inserir(produto);
         */
          

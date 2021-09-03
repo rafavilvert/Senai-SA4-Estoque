@@ -6,14 +6,11 @@ entidade\Pessoa.class
 entidade\Fornecedor.class
 entidade\Venda.class
 dao\ClienteDao.class
-entidade\Principal.class
 dao\CompraDao.class
 dao\ProdutoDao.class
 entidade\Compra.class
 dao\UsuarioDao.class
 dao\VendaDao.class
-dao\LampadaDao.class
-entidade\Lampada.class
 entidade\Produto.class
 entidade\Usuario.class
 entidade\Cliente.class

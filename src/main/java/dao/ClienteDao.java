@@ -1,11 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao;
 
 import entidade.Cliente;
+import entidade.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -16,111 +13,194 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.Conexao;
 
-/**
- *
- * @author USUARIO
- */
 public class ClienteDao {
 
-    private Connection conexao = Conexao.getConexao();
+    private Connection conexao;
 
     public void inserir(Cliente cliente) throws SQLException {
+        PreparedStatement stmt = null;
+        
         try {
-            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO cliente (cpf,nome) VALUES(?,?)");
-
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("INSERT INTO cliente (cpf,nome) VALUES(?,?)");
             stmt.setString(1, cliente.getCpf());
             stmt.setString(2, cliente.getNome());
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
             System.out.println("Cliente cadastrado com sucesso");
         } catch (Exception ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            conexao.close();
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
+
     }
 
     public void atualizar(Cliente cliente) throws SQLException {
+        PreparedStatement stmt = null;
+        
         try {
-            PreparedStatement stmt = conexao.prepareStatement("UPDATE cliente SET cpf=?,nome=? WHERE id=?");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("UPDATE cliente SET cpf=?,nome=? WHERE id=?");
             stmt.setString(1, cliente.getCpf());
             stmt.setString(2, cliente.getNome());
             stmt.setInt(3, cliente.getId());
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
+            
             System.out.println("Cliente atualizado com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            conexao.close();
+        }
+        
+        finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+           
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
     }
 
     public List<Cliente> listar() throws SQLException {
         List<Cliente> clientes = new ArrayList<>();
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        
         try {
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM CLIENTE");
-            ResultSet resultado = stmt.executeQuery();
-            
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("SELECT * FROM CLIENTE");
+            resultado = stmt.executeQuery();
+
             while (resultado.next()) {
                 Cliente cliente = new Cliente();
-                
                 cliente.setId(resultado.getInt("id"));
                 cliente.setCpf(resultado.getString("cpf"));
                 cliente.setNome(resultado.getString("nome"));
-                
                 clientes.add(cliente);
             }
-            stmt.close();
-            resultado.close();
-            conexao.close();
 
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDao.class
-                    .getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            conexao.close();
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
         return clientes;
     }
 
     public void remover(int id) throws SQLException {
+        PreparedStatement stmt = null;
+        
         try {
-            PreparedStatement stmt = conexao.prepareStatement("DELETE FROM cliente WHERE id=?");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("DELETE FROM cliente WHERE id=?");
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
+            
             System.out.println("Cliente removido com sucesso");
+
         } catch (SQLException ex) {
-            Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            conexao.close();
+            Logger.getLogger(ClienteDao.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        }
+        
+         finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+           
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
     }
 
-    public Cliente buscar(int id) throws SQLException {
+    public Cliente buscar(String cpf) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
         Cliente cliente = new Cliente();
         
         try {
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM cliente WHERE id=?");
-            stmt.setInt(1, id);
-            ResultSet resultado = stmt.executeQuery();
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("SELECT * FROM cliente WHERE cpf=?");
+            stmt.setString(1, cpf);
+            resultado = stmt.executeQuery();
             resultado.next();
-            cliente.setId(resultado.getShort("id"));
+            cliente.setId(resultado.getInt("id"));
             cliente.setCpf(resultado.getString("cpf"));
             cliente.setNome(resultado.getString("nome"));
-            stmt.close();
-            resultado.close();
-            conexao.close();
+            
             return cliente;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ClienteDao.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            throw new RuntimeException(
+                    "Erro no metodo buscar" + ex);
+
+        }
+        
+        finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
+        }
+
+    }
+    
+        public Cliente autenticar(String cpf) throws SQLException {
+
+        Cliente cliente = new Cliente();
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+
+        try {
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("SELECT * FROM cliente WHERE cpf=?");
+            stmt.setString(1, cpf);
+           
+            resultado = stmt.executeQuery();
+
+            if (resultado.next()) {
+                cliente.setNome(resultado.getString("nome"));
+                return cliente;
+            } else {
+                return null;
+            }
+
         } catch (SQLException ex) {
             Logger.getLogger(ClienteDao.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException("Erro no metodo buscar" + ex);
+            System.out.println("Erro ao buscar o cliente" + ex);
+            return null;
         } finally {
-            conexao.close();
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
 
     }

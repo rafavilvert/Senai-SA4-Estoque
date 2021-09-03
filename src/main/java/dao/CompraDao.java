@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao;
 
 import entidade.Fornecedor;
@@ -23,11 +19,14 @@ import utils.Conexao;
 
 public class CompraDao {
 
-    private Connection conexao = Conexao.getConexao();
+    private Connection conexao;
 
     public void inserir(Compra compra) throws SQLException {
+        PreparedStatement stmt = null;
+        
         try {
-            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO compra (usuario,fornecedor,data,produto,precoCompra,quantidade,precoTotal) VALUES(?,?,?,?,?,?,?)");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("INSERT INTO compra (usuario,fornecedor,data,produto,precoCompra,quantidade,precoTotal) VALUES(?,?,?,?,?,?,?)");
             stmt.setString(1, compra.getUsuario().getNome());
             stmt.setString(2, compra.getFornecedor().getNome());
             stmt.setString(3, compra.getData());
@@ -36,20 +35,28 @@ public class CompraDao {
             stmt.setDouble(6, compra.getProduto().getQuantidade());
             stmt.setDouble(7, compra.getPrecoTotal());
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
+           
             System.out.println("Compra cadastrada com sucesso");
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            conexao.close();
+        }
+        finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
     }
 
     public void atualizar(Compra compra) throws SQLException {
+        PreparedStatement stmt = null;
+        
         try {
-            PreparedStatement stmt = conexao.prepareStatement("UPDATE compra SET usuario=?,fornecedor=?,data=?,produto=?,precoCompra=?,quantidade=?,precoTotal=? WHERE id=?");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("UPDATE compra SET usuario=?,fornecedor=?,data=?,produto=?,precoCompra=?,quantidade=?,precoTotal=? WHERE id=?");
             stmt.setString(1, compra.getUsuario().getNome());
             stmt.setString(2, compra.getFornecedor().getNome());
             stmt.setString(3, compra.getData());
@@ -59,35 +66,41 @@ public class CompraDao {
             stmt.setDouble(7, compra.getPrecoTotal());
             stmt.setInt(8, compra.getId());
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
+            
             System.out.println("Compra atualizada com sucesso");
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            conexao.close();
+        }
+         finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
 
     }
 
     public List<Compra> listar() throws SQLException {
         List<Compra> compras = new ArrayList<>();
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
 
         try {
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM COMPRA");
-            ResultSet resultado = stmt.executeQuery();
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("SELECT * FROM COMPRA");
+            resultado = stmt.executeQuery();
             
             while (resultado.next()) {
                 Compra compra = new Compra();
                 Usuario usuario = new Usuario();
                 Fornecedor fornecedor = new Fornecedor();
                 Produto produto = new Produto();
-                
                 compra.setUsuario(usuario);
                 compra.setFornecedor(fornecedor);
                 compra.setProduto(produto);
-                
                 compra.setId(resultado.getInt("id"));
                 compra.getUsuario().setNome(resultado.getString("usuario"));
                 compra.getFornecedor().setNome(resultado.getString("fornecedor"));
@@ -99,33 +112,47 @@ public class CompraDao {
                 compra.setUsuario(usuario);
                 compra.setFornecedor(fornecedor);
                 compra.setProduto(produto);
-                
                 compras.add(compra);
             }
-            stmt.close();
-            resultado.close();
-            conexao.close();
+           
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            conexao.close();
+        }
+        finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
         return compras;
     }
 
     public void remover(int id) throws SQLException {
+        PreparedStatement stmt = null;
+        
         try {
-            PreparedStatement stmt = conexao.prepareStatement("DELETE FROM compra WHERE id=?");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("DELETE FROM compra WHERE id=?");
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
+            
             System.out.println("Compra removida com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            conexao.close();
+        }
+        finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
     }
 
@@ -134,14 +161,20 @@ public class CompraDao {
         Usuario usuario = new Usuario();
         Fornecedor fornecedor = new Fornecedor();
         Produto produto = new Produto();
-        compra.setUsuario(usuario);
-        compra.setFornecedor(fornecedor);
-        compra.setProduto(produto);
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
 
         try {
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM compra WHERE id=?");
+            conexao = Conexao.getConexao();
+            
+            compra.setUsuario(usuario);
+            compra.setFornecedor(fornecedor);
+            compra.setProduto(produto);
+
+            stmt = conexao.prepareStatement("SELECT * FROM compra WHERE id=?");
             stmt.setInt(1, id);
-            ResultSet resultado = stmt.executeQuery();
+            resultado = stmt.executeQuery();
+
             resultado.next();
             compra.setId(resultado.getInt("id"));
             compra.getUsuario().setNome(resultado.getString("usuario"));
@@ -151,16 +184,23 @@ public class CompraDao {
             compra.getProduto().setPrecoCompra(resultado.getDouble("precoCompra"));
             compra.getProduto().setQuantidade(resultado.getInt("quantidade"));
             compra.setPrecoTotal(resultado.getDouble("precoTotal"));
-            stmt.close();
-            resultado.close();
-            conexao.close();
+            
             return compra;
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro ao buscar a compra", ex);
-        } finally {
-            conexao.close();
+        }
+        finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
 
     }

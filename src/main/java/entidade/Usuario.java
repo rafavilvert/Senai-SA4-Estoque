@@ -1,3 +1,4 @@
+
 package entidade;
 
 public class Usuario extends PessoaFisica {
@@ -6,7 +7,17 @@ public class Usuario extends PessoaFisica {
     private String senha;
     private Venda venda;
     private Compra compra;
-    
+    private String cargo;
+
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String login, String senha) {
+        this.setNome(nome);
+        this.login = login;
+        this.senha = senha;
+
+    }
 
     public String getLogin() {
         return login;
@@ -39,6 +50,13 @@ public class Usuario extends PessoaFisica {
     public void setCompra(Compra compra) {
         this.compra = compra;
     }
-    
+
+    public String getCargo() {
+        return cargo;
+    }
+
+    public void setCargo(String cargo) {
+        this.cargo = cargo;
+    }
 
 }

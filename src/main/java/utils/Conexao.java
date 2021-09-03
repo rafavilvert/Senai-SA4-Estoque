@@ -1,3 +1,4 @@
+
 package utils;
 
 import java.sql.DriverManager;
@@ -18,14 +19,15 @@ public class Conexao {
             if (conexao == null || conexao.isClosed()) {
                 Class.forName(DRIVER);
                 conexao = DriverManager.getConnection(URL, USUARIO, SENHA);
-                System.out.println("Conectado ao banco de dados com sucesso!");
             }
             return conexao;
 
         } catch (ClassNotFoundException e) {
+            System.out.println("Não foi possível carregar o driver");
             e.printStackTrace();
             return null;
         } catch (SQLException e) {
+            System.out.println("Não foi possível conectar ao banco de dados");
             e.printStackTrace();
             return null;
         }

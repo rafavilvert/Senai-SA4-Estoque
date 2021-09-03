@@ -1,14 +1,39 @@
+
 package entidade;
 
 public class Produto {
 
     private int id;
     private String nome;
-    private String categoria;
     private Double precoCompra;
     private Double precoVenda;
     private int estoque;
+    private String categoria;
     private int quantidade;
+
+    public Produto() {
+    }
+
+    public Produto(int id, String nome, Double precoCompra, Double precoVenda, int estoque, String categoria) {
+        this.id = id;
+        this.nome = nome;
+        this.precoCompra = precoCompra;
+        this.precoVenda = precoVenda;
+        this.estoque = estoque;
+        this.categoria = categoria;
+    }
+
+    public Produto(String nome, Double precoCompra, Double precoVenda, int estoque, String categoria) {
+        this.nome = nome;
+        this.precoCompra = precoCompra;
+        this.precoVenda = precoVenda;
+        this.estoque = estoque;
+        this.categoria = categoria;
+    }
+
+    Produto(String nome, String pc, String pv, int estoque, String categoria) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     public int getId() {
         return id;
@@ -24,14 +49,6 @@ public class Produto {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 
     public Double getPrecoCompra() {
@@ -58,6 +75,14 @@ public class Produto {
         this.estoque = estoque;
     }
 
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
+    }
+
     public int getQuantidade() {
         return quantidade;
     }
@@ -68,8 +93,7 @@ public class Produto {
 
     @Override
     public String toString() {
-        return "Produto{" + "id=" + id + ", nome=" + nome + ", categoria=" + categoria + ", precoCompra=" + precoCompra + ", precoVenda=" + precoVenda + ", estoque=" + estoque + '}';
+        return "Produto{" + "id=" + id + ", nome=" + nome + ", precoCompra=" + precoCompra + ", precoVenda=" + precoVenda + ", estoque=" + estoque + ", categoria=" + categoria + "}\n";
     }
 
-    
 }

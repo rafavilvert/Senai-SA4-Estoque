@@ -4,20 +4,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Venda implements Transacao {
+
     private int id;
+    private int quantidade;
     private Produto produto;
     private List<Produto> produtosVenda;
     private String data;
     private Pessoa usuario;
     private Cliente cliente;
     private Double precoTotal;
-    
+
     public int getId() {
         return id;
     }
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
     }
 
     public Produto getProduto() {
@@ -69,28 +79,31 @@ public class Venda implements Transacao {
     }
 
     @Override
-    public void executar(Lampada l, int qtde) {
+    public void executar(Produto p, int q) {
 
-        if (l.getEstoque() < l.getQuantidade()) {
+        double total = 0;
+
+        if (p.getEstoque() < q) {
             System.out.println("Estoque insuficiente!");
         } else {
-            int inicial = l.getEstoque();
+            int inicial = p.getEstoque();
+            precoTotal = (p.getPrecoVenda() * q);
+            p.setEstoque(p.getEstoque() - q);
 
-            l.setEstoque(l.getEstoque() - qtde);
-            System.out.println("Descrição item: " + l.getNome()
+            System.out.println("VENDEU:\n");
+            System.out.println("Descrição item: " + p.getNome()
                     + "\nEstoque inicial: " + inicial
-                    + "\nValor unitário: " + l.getPrecoVenda()
-                    + "\nVendeu: " + qtde + " unidades"
-                    + "\nTotal: R$" + l.getPrecoVenda() * qtde
-                    + "\nEstoque atual: " + l.getEstoque() + "\n");
+                    + "\nValor unitário: R$" + String.format("%.2f", p.getPrecoVenda())
+                    + "\nVendeu: " + q + " unidades"
+                    + "\nTotal: R$" + String.format("%.2f", precoTotal)
+                    + "\nEstoque atual: " + p.getEstoque() + "\n");
+            produtosVenda.add(p);
         }
     }
 
     @Override
     public String toString() {
-        return "Venda{" + "id=" + id + ", produto=" + produto +  ", data=" + data + ", usuario=" + usuario + ", cliente=" + cliente + ", precoTotal=" + precoTotal + '}';
+        return "DETALHES DA VENDA:\n" + produtosVenda + ", data venda: " + data + ", usuario: " + usuario + ", cliente: " + cliente + ", precoTotal: " + precoTotal + "}\n";
     }
-
-    
 
 }

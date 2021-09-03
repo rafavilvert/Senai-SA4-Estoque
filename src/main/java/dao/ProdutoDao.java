@@ -1,5 +1,7 @@
+
 package dao;
 
+import entidade.Produto;
 import entidade.Produto;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,119 +13,194 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import utils.Conexao;
 
-/**
- *
- * @author USUARIO
- */
 public class ProdutoDao {
+    Produto produto = new Produto();
 
-    private Connection conexao = Conexao.getConexao();
+    private Connection conexao;
 
     public void inserir(Produto produto) throws SQLException {
+        PreparedStatement stmt = null;
+
         try {
-            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO produto (nome,precoCompra,precoVenda,estoque,categoria) VALUES(?,?,?,?,?)");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("INSERT INTO produto (nome,precoCompra,precoVenda,estoque,categoria) VALUES(?,?,?,?,?)");
             stmt.setString(1, produto.getNome());
             stmt.setDouble(2, produto.getPrecoCompra());
             stmt.setDouble(3, produto.getPrecoVenda());
             stmt.setInt(4, produto.getEstoque());
             stmt.setString(5, produto.getCategoria());
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
+
             System.out.println("Produto cadastrado com sucesso");
+
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            conexao.close();
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
     }
 
     public void atualizar(Produto produto) throws SQLException {
+        PreparedStatement stmt = null;
+
         try {
-            PreparedStatement stmt = conexao.prepareStatement("UPDATE produto SET nome=?,precoCompra=?,precoVenda=?,estoque=? WHERE id=?");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("UPDATE produto SET nome=?,precoCompra=?,precoVenda=?,estoque=?, categoria=? WHERE id=?");
             stmt.setString(1, produto.getNome());
             stmt.setDouble(2, produto.getPrecoCompra());
             stmt.setDouble(3, produto.getPrecoVenda());
             stmt.setInt(4, produto.getEstoque());
-            stmt.setInt(5, produto.getId());
+            stmt.setString(5, produto.getCategoria());
+            stmt.setInt(6, produto.getId());
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
+
             System.out.println("Produto atualizado com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
-            conexao.close();
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
     }
 
     public List<Produto> listar() throws SQLException {
         List<Produto> produtos = new ArrayList<>();
+        PreparedStatement stmt = null;
+        ResultSet resultado;
+
         try {
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM PRODUTO");
-            ResultSet resultado = stmt.executeQuery();
+
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("SELECT * FROM PRODUTO");
+            resultado = stmt.executeQuery();
 
             while (resultado.next()) {
                 Produto produto = new Produto();
-                
                 produto.setId(resultado.getInt("id"));
                 produto.setNome(resultado.getString("nome"));
                 produto.setPrecoCompra(resultado.getDouble("precoCompra"));
                 produto.setPrecoVenda(resultado.getDouble("precoVenda"));
                 produto.setEstoque(resultado.getInt("estoque"));
+                produto.setCategoria(resultado.getString("categoria"));
 
                 produtos.add(produto);
             }
-            stmt.close();
-            resultado.close();
-            conexao.close();
 
+            
         } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDao.class
-                    .getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            conexao.close();
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
         return produtos;
+        
     }
 
-    public void remover(int id) throws SQLException {
+    public void remover(int id) {
+        PreparedStatement stmt = null;
+
         try {
-            PreparedStatement stmt = conexao.prepareStatement("DELETE FROM produto WHERE id=?");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("DELETE FROM produto WHERE id=?");
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
+
             System.out.println("Produto removido com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            conexao.close();
         }
     }
 
     public Produto buscar(int id) throws SQLException {
-        Produto produto = new Produto();
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+
         try {
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM produto WHERE id=?");
+            conexao = Conexao.getConexao();
+            Produto produto = new Produto();
+            stmt = conexao.prepareStatement("SELECT * FROM produto WHERE id=?");
             stmt.setInt(1, id);
-            ResultSet resultado = stmt.executeQuery();
+            resultado = stmt.executeQuery();
             resultado.next();
             produto.setId(resultado.getInt("id"));
             produto.setNome(resultado.getString("nome"));
             produto.setPrecoCompra(resultado.getDouble("precoCompra"));
             produto.setPrecoVenda(resultado.getDouble("precoVenda"));
             produto.setEstoque(resultado.getInt("estoque"));
-            stmt.close();
-            resultado.close();
-            conexao.close();
+            
             return produto;
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro no metodo buscar" + ex);
+
         } finally {
-            conexao.close();
+            if (stmt != null) {
+                stmt.close();
+            }
+             if (resultado != null) {
+                resultado.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
+        }
+    }
+    
+    public Produto autenticar(int id) throws SQLException {
+
+        produto = new Produto();
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+
+        try {
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("SELECT * FROM produto WHERE id=?");
+            stmt.setInt(1, id);
+           
+            resultado = stmt.executeQuery();
+
+            if (resultado.next()) {
+                produto.setNome(resultado.getString("nome"));
+                produto.setPrecoVenda(resultado.getDouble("precoVenda"));
+                produto.setEstoque(resultado.getInt("estoque"));
+                produto.setCategoria(resultado.getString("categoria"));
+                return produto;
+            } else {
+                return null;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println("Erro ao buscar o produto" + ex);
+            return null;
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
 
     }
+
 }

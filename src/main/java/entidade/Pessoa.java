@@ -5,6 +5,14 @@ public class Pessoa {
     private String nome;
     private int id;
 
+    public Pessoa() {
+    }
+
+    public Pessoa(String nome,int id) {
+        this.nome = nome;
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -21,11 +29,10 @@ public class Pessoa {
         this.id = id;
     }
 
-
-    
     @Override
     public String toString() {
         return "Pessoa{" + "nome=" + nome + ", id=" + id + '}';
     }
+
 
 }

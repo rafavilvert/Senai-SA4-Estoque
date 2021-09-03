@@ -1,3 +1,4 @@
+
 package entidade;
 
 import java.util.ArrayList;
@@ -70,15 +71,15 @@ public class Compra implements Transacao {
 
     @Override
 
-    public void executar(Lampada l, int qtde) {
-        int inicial = l.getEstoque();
-        l.setEstoque(l.getEstoque() + qtde);
-        System.out.println("Descrição item: " + l.getNome()
+    public void executar(Produto p, int qtde) {
+        int inicial = p.getEstoque();
+        p.setEstoque(p.getEstoque() + qtde);
+        System.out.println("Descrição item: " + p.getNome()
                 + "\nEstoque inicial: " + inicial
-                + "\nValor unitário: " + l.getPrecoCompra()
+                + "\nValor unitário: " + p.getPrecoCompra()
                 + "\nComprou: " + qtde + " unidades"
-                + "\nTotal: R$" + l.getPrecoCompra() * qtde
-                + "\nEstoque atual: " + l.getEstoque() + "\n");
+                + "\nTotal: R$" + p.getPrecoCompra() * qtde
+                + "\nEstoque atual: " + p.getEstoque() + "\n");
 
     }
 

@@ -4,6 +4,9 @@ public class Cliente extends PessoaFisica {
 
     private Venda venda;
 
+    public Cliente() {
+    }
+
     public Venda getVenda() {
         return venda;
     }

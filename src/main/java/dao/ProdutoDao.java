@@ -2,7 +2,7 @@
 package dao;
 
 import entidade.Produto;
-import entidade.Produto;
+import entidade.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,10 +14,9 @@ import java.util.logging.Logger;
 import utils.Conexao;
 
 public class ProdutoDao {
-    Produto produto = new Produto();
-
+    
     private Connection conexao;
-
+    
     public void inserir(Produto produto) throws SQLException {
         PreparedStatement stmt = null;
 
@@ -44,10 +43,10 @@ public class ProdutoDao {
             }
         }
     }
-
-    public void atualizar(Produto produto) throws SQLException {
+    
+    public void atualizar(Produto produto)  {
         PreparedStatement stmt = null;
-
+        
         try {
             conexao = Conexao.getConexao();
             stmt = conexao.prepareStatement("UPDATE produto SET nome=?,precoCompra=?,precoVenda=?,estoque=?, categoria=? WHERE id=?");
@@ -58,8 +57,24 @@ public class ProdutoDao {
             stmt.setString(5, produto.getCategoria());
             stmt.setInt(6, produto.getId());
             stmt.executeUpdate();
-
             System.out.println("Produto atualizado com sucesso");
+        } catch (SQLException ex) {
+            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
+        }
+           
+    }
+            
+    public void atualizarEstoque(Produto produto) throws SQLException {
+        PreparedStatement stmt = null;
+        
+        try {            
+            conexao = Conexao.getConexao();
+            
+            stmt = conexao.prepareStatement("UPDATE produto SET estoque=? WHERE id=?");
+            stmt.setInt(1, produto.getEstoque());
+            stmt.setInt(2, produto.getId());
+            stmt.executeUpdate();
+            
         } catch (SQLException ex) {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
@@ -75,14 +90,14 @@ public class ProdutoDao {
     public List<Produto> listar() throws SQLException {
         List<Produto> produtos = new ArrayList<>();
         PreparedStatement stmt = null;
-        ResultSet resultado;
-
+        ResultSet resultado = null;
+        
         try {
 
             conexao = Conexao.getConexao();
             stmt = conexao.prepareStatement("SELECT * FROM PRODUTO");
             resultado = stmt.executeQuery();
-
+            
             while (resultado.next()) {
                 Produto produto = new Produto();
                 produto.setId(resultado.getInt("id"));
@@ -91,7 +106,6 @@ public class ProdutoDao {
                 produto.setPrecoVenda(resultado.getDouble("precoVenda"));
                 produto.setEstoque(resultado.getInt("estoque"));
                 produto.setCategoria(resultado.getString("categoria"));
-
                 produtos.add(produto);
             }
 
@@ -104,7 +118,10 @@ public class ProdutoDao {
             if (stmt != null) {
                 stmt.close();
             }
-            if (conexao != null || !conexao.isClosed()) {
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (!conexao.isClosed() || conexao != null) {
                 conexao.close();
             }
         }
@@ -126,45 +143,10 @@ public class ProdutoDao {
             Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
-    public Produto buscar(int id) throws SQLException {
-        PreparedStatement stmt = null;
-        ResultSet resultado = null;
-
-        try {
-            conexao = Conexao.getConexao();
-            Produto produto = new Produto();
-            stmt = conexao.prepareStatement("SELECT * FROM produto WHERE id=?");
-            stmt.setInt(1, id);
-            resultado = stmt.executeQuery();
-            resultado.next();
-            produto.setId(resultado.getInt("id"));
-            produto.setNome(resultado.getString("nome"));
-            produto.setPrecoCompra(resultado.getDouble("precoCompra"));
-            produto.setPrecoVenda(resultado.getDouble("precoVenda"));
-            produto.setEstoque(resultado.getInt("estoque"));
-            
-            return produto;
-        } catch (SQLException ex) {
-            Logger.getLogger(ProdutoDao.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException("Erro no metodo buscar" + ex);
-
-        } finally {
-            if (stmt != null) {
-                stmt.close();
-            }
-             if (resultado != null) {
-                resultado.close();
-            }
-            if (conexao != null || !conexao.isClosed()) {
-                conexao.close();
-            }
-        }
-    }
     
-    public Produto autenticar(int id) throws SQLException {
+    public Produto buscar(int id) throws SQLException {
 
-        produto = new Produto();
+        Produto produto = new Produto();
         PreparedStatement stmt = null;
         ResultSet resultado = null;
 
@@ -176,8 +158,10 @@ public class ProdutoDao {
             resultado = stmt.executeQuery();
 
             if (resultado.next()) {
+                produto.setId(resultado.getInt("id"));
                 produto.setNome(resultado.getString("nome"));
                 produto.setPrecoVenda(resultado.getDouble("precoVenda"));
+                produto.setPrecoCompra(resultado.getDouble("precoCompra"));
                 produto.setEstoque(resultado.getInt("estoque"));
                 produto.setCategoria(resultado.getString("categoria"));
                 return produto;

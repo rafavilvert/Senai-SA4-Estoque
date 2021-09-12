@@ -1,4 +1,3 @@
-
 package dao;
 
 import entidade.Fornecedor;
@@ -14,91 +13,128 @@ import utils.Conexao;
 
 public class FornecedorDao {
 
-    private Connection conexao = Conexao.getConexao();
+    private Connection conexao;
 
-    public void inserir(Fornecedor fornecedor) {
+    public void inserir(Fornecedor fornecedor) throws SQLException {
+        PreparedStatement stmt = null;
         try {
-            PreparedStatement stmt = conexao.prepareStatement("INSERT INTO fornecedor (nome,cnpj) VALUES(?,?)");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("INSERT INTO fornecedor (nome,cnpj) VALUES(?,?)");
             stmt.setString(1, fornecedor.getNome());
             stmt.setString(2, fornecedor.getCnpj());
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
             System.out.println("Fornecedor cadastrado com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(FornecedorDao.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
     }
 
     public void atualizar(Fornecedor fornecedor) {
+        PreparedStatement stmt = null;
         try {
-            PreparedStatement stmt = conexao.prepareStatement("UPDATE fornecedor SET nome=?,cnpj=? WHERE id=?");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("UPDATE fornecedor SET nome=?,cnpj=? WHERE id=?");
             stmt.setString(1, fornecedor.getNome());
             stmt.setString(2, fornecedor.getCnpj());
             stmt.setInt(3, fornecedor.getId());
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
             System.out.println("Fornecedor atualizado com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(FornecedorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public List<Fornecedor> listar() {
+    public List<Fornecedor> listar() throws SQLException {
         List<Fornecedor> fornecedores = new ArrayList<>();
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        
         try {
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM FORNECEDOR");
-            ResultSet resultado = stmt.executeQuery();
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("SELECT * FROM FORNECEDOR");
+            resultado = stmt.executeQuery();
+            
             while (resultado.next()) {
                 Fornecedor fornecedor = new Fornecedor();
-                fornecedor.setId(resultado.getInt(1));
-                fornecedor.setNome(resultado.getString(2));
-                fornecedor.setCnpj(resultado.getString(3));
+                fornecedor.setId(resultado.getInt("id"));
+                fornecedor.setNome(resultado.getString("nome"));
+                fornecedor.setCnpj(resultado.getString("cnpj"));
                 fornecedores.add(fornecedor);
             }
-            stmt.close();
-            resultado.close();
-            conexao.close();
 
         } catch (SQLException ex) {
             Logger.getLogger(FornecedorDao.class
                     .getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
         }
+
         return fornecedores;
     }
 
     public void remover(int id) {
+
+        PreparedStatement stmt = null;
         try {
-            PreparedStatement stmt = conexao.prepareStatement("DELETE FROM fornecedor WHERE id=?");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("DELETE FROM fornecedor WHERE id=?");
             stmt.setInt(1, id);
             stmt.executeUpdate();
-            stmt.close();
-            conexao.close();
             System.out.println("Fornecedor removido com sucesso");
         } catch (SQLException ex) {
             Logger.getLogger(FornecedorDao.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public Fornecedor buscar(int id) {
+    public Fornecedor buscar(int id) throws SQLException {
+        Fornecedor fornecedor = new Fornecedor();
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
 
         try {
-            Fornecedor fornecedor = new Fornecedor();
-            PreparedStatement stmt = conexao.prepareStatement("SELECT * FROM fornecedor WHERE id=?");
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("SELECT * FROM fornecedor WHERE id=?");
             stmt.setInt(1, id);
-            ResultSet resultado = stmt.executeQuery();
-            resultado.next();
-            fornecedor.setId(resultado.getInt("id"));
-            fornecedor.setNome(resultado.getString("nome"));
-            fornecedor.setCnpj(resultado.getString("cnpj"));
-            stmt.close();
-            resultado.close();
-            conexao.close();
-            return fornecedor;
+            resultado = stmt.executeQuery();
+            
+            if(resultado.next()){
+                fornecedor.setId(resultado.getInt("id"));
+                fornecedor.setNome(resultado.getString("nome"));
+                fornecedor.setCnpj(resultado.getString("cnpj"));
+                return fornecedor; 
+            }
+            else{
+                return null;
+            }
+           
         } catch (SQLException ex) {
             Logger.getLogger(FornecedorDao.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException("Erro no metodo buscar" + ex);
+            return null;
+        } finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
 
         }
 

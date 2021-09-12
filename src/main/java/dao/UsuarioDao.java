@@ -1,6 +1,7 @@
 
 package dao;
 
+import entidade.Cliente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -121,7 +122,46 @@ public class UsuarioDao {
         }
 
     }
-
+    
+    public Usuario buscar(int id) throws SQLException {
+        PreparedStatement stmt = null;
+        ResultSet resultado = null;
+        Usuario usuario = new Usuario();
+        
+        try {
+            conexao = Conexao.getConexao();
+            stmt = conexao.prepareStatement("SELECT * FROM usuario WHERE id=?");
+            stmt.setInt(1, id);
+            resultado = stmt.executeQuery();
+            
+            if(resultado.next()){
+                usuario.setId(resultado.getInt("id"));
+                usuario.setLogin(resultado.getString("login"));
+                usuario.setNome(resultado.getString("nome"));
+                return usuario;
+            }
+            else{
+                return null;
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(UsuarioDao.class
+                    .getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+        finally {
+            if (stmt != null) {
+                stmt.close();
+            }
+            if (resultado != null) {
+                resultado.close();
+            }
+            if (conexao != null || !conexao.isClosed()) {
+                conexao.close();
+            }
+        }
+    }
+    
     public Usuario autenticar(String login, String senha) throws SQLException {
 
         Usuario usuario = new Usuario();

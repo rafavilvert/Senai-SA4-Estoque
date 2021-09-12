@@ -3,7 +3,6 @@ C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\Usuario.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\dao\UsuarioDao.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\PessoaJuridica.java
-C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\dao\LampadaDao.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\dao\CompraDao.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\dao\ClienteDao.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\Cliente.java
@@ -11,11 +10,9 @@ C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\main\Principal.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\dao\ProdutoDao.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\Venda.java
-C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\Principal.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\dao\VendaDao.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\Fornecedor.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\Pessoa.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\Produto.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\Transacao.java
 C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\dao\FornecedorDao.java
-C:\Users\USUARIO\Documents\NetBeansProjects\versaoEtapa2\src\main\java\entidade\Lampada.java

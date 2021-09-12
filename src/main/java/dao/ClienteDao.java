@@ -2,7 +2,6 @@
 package dao;
 
 import entidade.Cliente;
-import entidade.Usuario;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -128,46 +127,7 @@ public class ClienteDao {
         }
     }
 
-    public Cliente buscar(String cpf) throws SQLException {
-        PreparedStatement stmt = null;
-        ResultSet resultado = null;
-        Cliente cliente = new Cliente();
-        
-        try {
-            conexao = Conexao.getConexao();
-            stmt = conexao.prepareStatement("SELECT * FROM cliente WHERE cpf=?");
-            stmt.setString(1, cpf);
-            resultado = stmt.executeQuery();
-            resultado.next();
-            cliente.setId(resultado.getInt("id"));
-            cliente.setCpf(resultado.getString("cpf"));
-            cliente.setNome(resultado.getString("nome"));
-            
-            return cliente;
-
-        } catch (SQLException ex) {
-            Logger.getLogger(ClienteDao.class
-                    .getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException(
-                    "Erro no metodo buscar" + ex);
-
-        }
-        
-        finally {
-            if (stmt != null) {
-                stmt.close();
-            }
-            if (resultado != null) {
-                resultado.close();
-            }
-            if (conexao != null || !conexao.isClosed()) {
-                conexao.close();
-            }
-        }
-
-    }
-    
-        public Cliente autenticar(String cpf) throws SQLException {
+    public Cliente buscar(int id) throws SQLException {
 
         Cliente cliente = new Cliente();
         PreparedStatement stmt = null;
@@ -175,9 +135,8 @@ public class ClienteDao {
 
         try {
             conexao = Conexao.getConexao();
-            stmt = conexao.prepareStatement("SELECT * FROM cliente WHERE cpf=?");
-            stmt.setString(1, cpf);
-           
+            stmt = conexao.prepareStatement("SELECT * FROM cliente WHERE id=?");
+            stmt.setInt(1, id);
             resultado = stmt.executeQuery();
 
             if (resultado.next()) {

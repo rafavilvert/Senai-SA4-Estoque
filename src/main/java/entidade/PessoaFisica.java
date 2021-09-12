@@ -29,5 +29,10 @@ public class PessoaFisica extends Pessoa {
         this.cpf = cpf;
     }
 
+    @Override
+    public String toString() {
+        return "PessoaFisica{" + "cpf=" + cpf + '}';
+    }
+
 
 }

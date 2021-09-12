@@ -18,9 +18,11 @@ import utils.Conexao;
 public class VendaDao {
 
     private Connection conexao;
-
+    
+    
     public void inserir(Venda venda) throws SQLException {
          PreparedStatement stmt = null;
+         
         try {
             conexao = Conexao.getConexao();
             stmt = conexao.prepareStatement("INSERT INTO venda (usuario,cliente,data,produto,precoVenda,quantidade,precoTotal) VALUES(?,?,?,?,?,?,?)");
@@ -33,7 +35,7 @@ public class VendaDao {
             stmt.setDouble(7, venda.getPrecoTotal());
             stmt.executeUpdate();
             
-            System.out.println("Venda cadastrada com sucesso");
+            System.out.println("***VENDA CADASTRADA COM SUCESSO!***");
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -170,18 +172,20 @@ public class VendaDao {
             stmt.setInt(1, id);
             resultado = stmt.executeQuery();
 
-            resultado.next();
-            venda.setId(resultado.getInt("id"));
-            venda.getUsuario().setNome(resultado.getString("usuario"));
-            venda.getCliente().setNome(resultado.getString("cliente"));
-            venda.setData(resultado.getString("data"));
-            venda.getProduto().setNome(resultado.getString("produto"));
-            venda.getProduto().setPrecoVenda(resultado.getDouble("precoVenda"));
-            venda.getProduto().setQuantidade(resultado.getInt("quantidade"));
-            venda.setPrecoTotal(resultado.getDouble("precoTotal"));
-            
-            return venda;
-
+            if(resultado.next()){
+                venda.setId(resultado.getInt("id"));
+                venda.getUsuario().setNome(resultado.getString("usuario"));
+                venda.getCliente().setNome(resultado.getString("cliente"));
+                venda.setData(resultado.getString("data"));
+                venda.getProduto().setNome(resultado.getString("produto"));
+                venda.getProduto().setPrecoVenda(resultado.getDouble("precoVenda"));
+                venda.getProduto().setQuantidade(resultado.getInt("quantidade"));
+                venda.setPrecoTotal(resultado.getDouble("precoTotal"));
+                return venda;
+            }
+            else{
+                return null;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
             throw new RuntimeException("Erro ao buscar a venda", ex);

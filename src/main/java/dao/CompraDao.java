@@ -9,9 +9,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.DateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -36,7 +34,7 @@ public class CompraDao {
             stmt.setDouble(7, compra.getPrecoTotal());
             stmt.executeUpdate();
            
-            System.out.println("Compra cadastrada com sucesso");
+            System.out.println("\nCompra cadastrada com sucesso");
 
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
@@ -87,13 +85,14 @@ public class CompraDao {
         List<Compra> compras = new ArrayList<>();
         PreparedStatement stmt = null;
         ResultSet resultado = null;
-
+        
         try {
             conexao = Conexao.getConexao();
             stmt = conexao.prepareStatement("SELECT * FROM COMPRA");
             resultado = stmt.executeQuery();
             
             while (resultado.next()) {
+                
                 Compra compra = new Compra();
                 Usuario usuario = new Usuario();
                 Fornecedor fornecedor = new Fornecedor();
@@ -109,13 +108,9 @@ public class CompraDao {
                 compra.getProduto().setPrecoCompra(resultado.getDouble("precoCompra"));
                 compra.getProduto().setQuantidade(resultado.getInt("quantidade"));
                 compra.setPrecoTotal(resultado.getDouble("precoTotal"));
-                compra.setUsuario(usuario);
-                compra.setFornecedor(fornecedor);
-                compra.setProduto(produto);
                 compras.add(compra);
             }
            
-
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -175,21 +170,23 @@ public class CompraDao {
             stmt.setInt(1, id);
             resultado = stmt.executeQuery();
 
-            resultado.next();
-            compra.setId(resultado.getInt("id"));
-            compra.getUsuario().setNome(resultado.getString("usuario"));
-            compra.getFornecedor().setNome(resultado.getString("fornecedor"));
-            compra.setData(resultado.getString("data"));
-            compra.getProduto().setNome(resultado.getString("produto"));
-            compra.getProduto().setPrecoCompra(resultado.getDouble("precoCompra"));
-            compra.getProduto().setQuantidade(resultado.getInt("quantidade"));
-            compra.setPrecoTotal(resultado.getDouble("precoTotal"));
-            
-            return compra;
-
+            if(resultado.next()){
+                compra.setId(resultado.getInt("id"));
+                compra.getUsuario().setNome(resultado.getString("usuario"));
+                compra.getFornecedor().setNome(resultado.getString("fornecedor"));
+                compra.setData(resultado.getString("data"));
+                compra.getProduto().setNome(resultado.getString("produto"));
+                compra.getProduto().setPrecoCompra(resultado.getDouble("precoCompra"));
+                compra.getProduto().setQuantidade(resultado.getInt("quantidade"));
+                compra.setPrecoTotal(resultado.getDouble("precoTotal"));
+                return compra;
+            }
+            else{
+                return null;
+            }
         } catch (SQLException ex) {
             Logger.getLogger(UsuarioDao.class.getName()).log(Level.SEVERE, null, ex);
-            throw new RuntimeException("Erro ao buscar a compra", ex);
+            return null;
         }
         finally {
             if (stmt != null) {

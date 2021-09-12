@@ -1,18 +1,32 @@
 package entidade;
 
-import java.util.ArrayList;
-import java.util.List;
+import dao.ProdutoDao;
+import dao.VendaDao;
+import java.sql.SQLException;
+import java.text.DateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Venda implements Transacao {
 
+    Date data = new Date();
+    private String dataHoje = DateFormat.getDateInstance().format(data);
     private int id;
     private int quantidade;
-    private Produto produto;
-    private List<Produto> produtosVenda;
-    private String data;
+    int estoque;
     private Pessoa usuario;
     private Cliente cliente;
     private Double precoTotal;
+    Produto produto = new Produto();
+   
+    public String getData() {
+        return dataHoje;
+    }
+
+    public void setData(String data) {
+        this.dataHoje = data;
+    }
 
     public int getId() {
         return id;
@@ -36,22 +50,6 @@ public class Venda implements Transacao {
 
     public void setProduto(Produto produto) {
         this.produto = produto;
-    }
-
-    public List<Produto> getProdutosVenda() {
-        return produtosVenda;
-    }
-
-    public void setProdutosVenda(List<Produto> produtosVenda) {
-        this.produtosVenda = produtosVenda;
-    }
-
-    public String getData() {
-        return data;
-    }
-
-    public void setData(String data) {
-        this.data = data;
     }
 
     public Pessoa getUsuario() {
@@ -81,29 +79,45 @@ public class Venda implements Transacao {
     @Override
     public void executar(Produto p, int q) {
 
-        double total = 0;
-
-        if (p.getEstoque() < q) {
-            System.out.println("Estoque insuficiente!");
-        } else {
-            int inicial = p.getEstoque();
-            precoTotal = (p.getPrecoVenda() * q);
+        if (p.getEstoque() >= q) {
+            Venda venda = new Venda();
+            ProdutoDao produtoDao = new ProdutoDao();
+            VendaDao vendaDao = new VendaDao();
+            
+        try {
+            
             p.setEstoque(p.getEstoque() - q);
-
-            System.out.println("VENDEU:\n");
-            System.out.println("Descrição item: " + p.getNome()
-                    + "\nEstoque inicial: " + inicial
-                    + "\nValor unitário: R$" + String.format("%.2f", p.getPrecoVenda())
-                    + "\nVendeu: " + q + " unidades"
-                    + "\nTotal: R$" + String.format("%.2f", precoTotal)
-                    + "\nEstoque atual: " + p.getEstoque() + "\n");
-            produtosVenda.add(p);
+            produtoDao.atualizarEstoque(p);
+            System.out.println("\n========VENDA=========");
+            System.out.println("Descrição item: " + p.getNome());
+            System.out.println("Valor unitário: R$" + String.format("%.2f", p.getPrecoVenda()));
+            System.out.println("Vendeu: " + q + " unidades");
+            System.out.println("Total: R$" + String.format("%.2f", (p.getPrecoVenda() * q)));
+            System.out.println("Estoque atual: " + p.getEstoque() + "\n");
+            venda.setUsuario(usuario);
+            venda.setCliente(cliente);
+            venda.setData(dataHoje);
+            venda.setProduto(p);
+            venda.setData(dataHoje);
+            venda.getProduto().getPrecoVenda();
+            venda.getProduto().setQuantidade(q);
+            venda.setPrecoTotal(p.getPrecoVenda() * q);
+            vendaDao.inserir(venda);
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Venda.class.getName()).log(Level.SEVERE, null, ex);
         }
+        } //fim if
+        else {
+            System.out.println("Estoque insuficiente!");
+        }
+
     }
 
     @Override
     public String toString() {
-        return "DETALHES DA VENDA:\n" + produtosVenda + ", data venda: " + data + ", usuario: " + usuario + ", cliente: " + cliente + ", precoTotal: " + precoTotal + "}\n";
+        return "Venda{" + "data=" + data + ", dataHoje=" + dataHoje + ", id=" + id + ", quantidade=" + quantidade + ", estoque=" + estoque + ", usuario=" + usuario + ", cliente=" + cliente + ", precoTotal=" + precoTotal + ", produto=" + produto + '}';
     }
-
+    
+    
 }

@@ -1,10 +1,14 @@
-
 package entidade;
 
+import dao.ProdutoDao;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Compra implements Transacao {
+
     private int id;
     private Produto produto;
     private List<Produto> produtosCompra = new ArrayList<>();
@@ -12,6 +16,7 @@ public class Compra implements Transacao {
     private Pessoa usuario;
     private Pessoa fornecedor;
     private Double precoTotal;
+    private int quantidade;
 
     public int getId() {
         return id;
@@ -29,6 +34,15 @@ public class Compra implements Transacao {
         this.produto = produto;
     }
 
+    public int getQuantidade() {
+        return quantidade;
+    }
+
+    public void setQuantidade(int quantidade) {
+        this.quantidade = quantidade;
+    }
+    
+    
     public List<Produto> getProdutosCompra() {
         return produtosCompra;
     }
@@ -68,24 +82,29 @@ public class Compra implements Transacao {
     public void setPrecoTotal(Double precoTotal) {
         this.precoTotal = precoTotal;
     }
-
+    
     @Override
 
     public void executar(Produto p, int qtde) {
-        int inicial = p.getEstoque();
-        p.setEstoque(p.getEstoque() + qtde);
-        System.out.println("Descrição item: " + p.getNome()
-                + "\nEstoque inicial: " + inicial
-                + "\nValor unitário: " + p.getPrecoCompra()
-                + "\nComprou: " + qtde + " unidades"
-                + "\nTotal: R$" + p.getPrecoCompra() * qtde
-                + "\nEstoque atual: " + p.getEstoque() + "\n");
-
-    }
-
-    @Override
-    public String toString() {
-        return "DETALHES DA COMPRA:\n" + produtosCompra + "\n Data compra: " + data + "\n Usuario: " + usuario + "\n Fornecedor: " + fornecedor;
+        
+        try {
+            ProdutoDao produtoDao = new ProdutoDao();
+            int inicial = p.getEstoque();
+            p.setEstoque(p.getEstoque() + qtde);
+            produtoDao.atualizarEstoque(p);
+            
+            System.out.println("\nDescrição item: " + p.getNome());
+            System.out.println("\nEstoque inicial: " + inicial);
+            System.out.println("\nValor unitário: " + String.format("%.2f", p.getPrecoCompra()));
+            System.out.println("\nComprou: " + qtde + " unidades");
+            System.out.println("\nTotal: R$" + String.format("%.2f", (p.getPrecoCompra() * qtde)));
+            System.out.println("\nEstoque atual: " + p.getEstoque() + "\n");
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(Compra.class.getName()).log(Level.SEVERE, null, ex);
+        }
+              
     }
 
 }
+
